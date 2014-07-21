@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        style="@style/normal_line"
+        android:orientation="horizontal" >
+
+        <!-- 文字条 -->
+
+        <TextView
+            android:id="@+id/new_event_icon_kind_1"
+            style="@style/icon_selection_text"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/icon_selection_often" />
+
+        <TextView
+            android:id="@+id/new_event_icon_kind_2"
+            style="@style/icon_selection_text"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/icon_selection_important" />
+
+        <TextView
+            android:id="@+id/new_event_icon_kind_3"
+            style="@style/icon_selection_text"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/icon_selection_study" />
+
+        <TextView
+            android:id="@+id/new_event_icon_kind_4"
+            style="@style/icon_selection_text"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/icon_selection_work" />
+
+        <TextView
+            android:id="@+id/new_event_icon_kind_5"
+            style="@style/icon_selection_text"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/icon_selection_lesure" />
+
+        <TextView
+            android:id="@+id/new_event_icon_kind_6"
+            style="@style/icon_selection_text"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="@string/icon_selection_freatured" />
+    </LinearLayout>
+
+    <!-- 滑动小条 -->
+
+
+    <!-- 图标行1 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+         <ImageView
+            android:id="@+id/select_icon_1"
+            style="@style/normal_drawble" />
+         
+        <ImageView
+            android:id="@+id/select_icon_2"
+            style="@style/normal_drawble" />
+
+        <ImageView
+            android:id="@+id/select_icon_3"
+            style="@style/normal_drawble" />
+
+        <ImageView
+            android:id="@+id/select_icon_4"
+            style="@style/normal_drawble" />
+
+        <ImageView
+            android:id="@+id/select_icon_5"
+            style="@style/normal_drawble" />
+
+        <ImageView
+            android:id="@+id/select_icon_6"
+            style="@style/normal_drawble" />
+
+        <ImageView
+            android:id="@+id/select_icon_7"
+            style="@style/normal_drawble" />
+
+    </LinearLayout>
+    <!-- 图标行2 -->
+   <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageView
+            android:id="@+id/select_icon_8"
+            style="@style/normal_drawble" />
+
+        <ImageView
+            android:id="@+id/select_icon_9"
+            style="@style/normal_drawble" />
+
+        <ImageView
+            android:id="@+id/select_icon_10"
+            style="@style/normal_drawble" />
+
+        <ImageView
+            android:id="@+id/select_icon_11"
+            style="@style/normal_drawble" />
+
+        <ImageView
+            android:id="@+id/select_icon_12"
+            style="@style/normal_drawble" />
+
+        <ImageView
+            android:id="@+id/select_icon_13"
+            style="@style/normal_drawble" />
+         <ImageView
+            android:id="@+id/select_icon_14"
+            style="@style/normal_drawble" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

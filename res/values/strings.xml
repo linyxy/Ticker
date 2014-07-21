@@ -9,5 +9,13 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
+    <string name="new_event_name_hint">事件名称</string>
+    <string name="new_note_hint">简要注释或点击＋关联便签</string>
+    <string name="icon_selection_often">常用</string>
+    <string name="icon_selection_important">重要级</string>
+    <string name="icon_selection_study">学习</string>
+    <string name="icon_selection_work">工作</string>
+    <string name="icon_selection_lesure">休闲</string>
+    <string name="icon_selection_freatured">自定义</string>
 
 </resources>
