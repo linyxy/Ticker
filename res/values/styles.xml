@@ -68,5 +68,11 @@
        <item name="android:gravity">center_vertical|center_horizontal</item>
    </style>
    
+   <style name="icon_space" parent="padding_pic">
+       <!--  一个大小等于一般icon的透明不可选取填充物 -->
+       <item name="android:visibility">invisible</item>
+       <item name="android:enabled">@bool/enable_false</item>
+   </style>
+   
 
 </resources>
