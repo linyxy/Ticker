@@ -17,5 +17,7 @@
     <string name="icon_selection_work">工作</string>
     <string name="icon_selection_lesure">休闲</string>
     <string name="icon_selection_freatured">自定义</string>
+    <string name="new_event_contact_hint">联系人</string>
+    <string name="new_event_extra_hint">属性</string>
 
 </resources>
