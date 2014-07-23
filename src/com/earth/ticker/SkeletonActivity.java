@@ -1,22 +1,18 @@
 package com.earth.ticker;
 
 import android.app.Activity;
-import android.support.v7.app.ActionBarActivity;
-import android.support.v7.app.ActionBar;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.content.Context;
-import android.os.Build;
-import android.os.Bundle;
-import android.view.Gravity;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.widget.DrawerLayout;
-import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 public class SkeletonActivity extends ActionBarActivity implements
 		NavigationDrawerFragment.NavigationDrawerCallbacks {
@@ -55,6 +51,13 @@ public class SkeletonActivity extends ActionBarActivity implements
 				.beginTransaction()
 				.replace(R.id.container,
 						PlaceholderFragment.newInstance(position + 1)).commit();
+		if(position == 0)
+		{
+			
+			Intent intent = new Intent();
+			intent.setClass(SkeletonActivity.this, NewEventActivity.class);
+			startActivity(intent);
+		}
 	}
 
 	public void onSectionAttached(int number) {
@@ -130,7 +133,7 @@ public class SkeletonActivity extends ActionBarActivity implements
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_new_event,
+			View rootView = inflater.inflate(R.layout.fragment_skeleton,
 					container, false);
 			return rootView;
 		}

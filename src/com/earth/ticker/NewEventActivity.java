@@ -9,6 +9,9 @@ import android.view.MenuItem;
 
 public class NewEventActivity extends ActionBarActivity {
 
+	private NavigationDrawerFragment mNavigationDrawerFragment;
+
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -16,11 +19,16 @@ public class NewEventActivity extends ActionBarActivity {
 		setContentView(R.layout.activity_new_event);
 	    ActionBar actionBar = getSupportActionBar();
 	    actionBar.setDisplayHomeAsUpEnabled(true);
+	    
+
+	    
+	    
 		super.onCreate(savedInstanceState);
 		
 		
 	}
 
+	
 
 
 	@Override
