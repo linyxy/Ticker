@@ -19,5 +19,6 @@
     <string name="icon_selection_freatured">自定义</string>
     <string name="new_event_contact_hint">联系人</string>
     <string name="new_event_extra_hint">属性</string>
-
+	<string name="confirm">确定</string>
+	<string name="cancel">取消</string>
 </resources>

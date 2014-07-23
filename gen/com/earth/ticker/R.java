@@ -1102,7 +1102,7 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f050023;
         public static final int action_bar_title=0x7f050022;
         public static final int action_context_bar=0x7f05001d;
-        public static final int action_example=0x7f050064;
+        public static final int action_example=0x7f050066;
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
@@ -1134,6 +1134,8 @@ containing a value of this type.
         public static final int never=0x7f050009;
         public static final int new_contact_attach=0x7f05004a;
         public static final int new_date_picker=0x7f050045;
+        public static final int new_event_create=0x7f050065;
+        public static final int new_event_delete=0x7f050064;
         public static final int new_event_icon_kind_1=0x7f05004f;
         public static final int new_event_icon_kind_2=0x7f050050;
         public static final int new_event_icon_kind_3=0x7f050051;
@@ -1256,7 +1258,8 @@ containing a value of this type.
     }
     public static final class menu {
         public static final int global=0x7f0c0000;
-        public static final int skeleton=0x7f0c0001;
+        public static final int new_event=0x7f0c0001;
+        public static final int skeleton=0x7f0c0002;
     }
     public static final class string {
         /**  Content description for the action bar "home" affordance. [CHAR LIMIT=NONE] 
@@ -1302,6 +1305,8 @@ containing a value of this type.
         public static final int action_example=0x7f0a0013;
         public static final int action_settings=0x7f0a0014;
         public static final int app_name=0x7f0a000d;
+        public static final int cancel=0x7f0a0020;
+        public static final int confirm=0x7f0a001f;
         public static final int icon_selection_freatured=0x7f0a001c;
         public static final int icon_selection_important=0x7f0a0018;
         public static final int icon_selection_lesure=0x7f0a001b;
