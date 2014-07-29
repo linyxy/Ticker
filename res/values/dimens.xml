@@ -11,5 +11,7 @@
     <dimen name="navigation_drawer_width">240dp</dimen>
     <dimen name="text_small">12sp</dimen>
     <dimen name="text_middle">15sp</dimen>
+    <dimen name="text_large">22sp</dimen>
+    <dimen name="new_time_text">50sp</dimen>
 
 </resources>

@@ -21,5 +21,7 @@
     <string name="new_event_extra_hint">属性</string>
 	<string name="confirm">确定</string>
 	<string name="cancel">取消</string>
-	<string name="now_date_sample">7-28 星期三</string>
+	<string name="now_date_sample">7月28日 星期三</string>
+	<string name="new_time_sample">00:00</string>
+	<string name="now_task_name_defualt">当前没有任务进行着</string>
 </resources>
