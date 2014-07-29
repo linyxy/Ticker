@@ -859,11 +859,12 @@ containing a value of this type.
         public static final int enable_false=0x7f060006;
     }
     public static final class color {
-        public static final int abc_search_url_text_holo=0x7f070005;
+        public static final int abc_search_url_text_holo=0x7f070006;
         public static final int abc_search_url_text_normal=0x7f070000;
         public static final int abc_search_url_text_pressed=0x7f070002;
         public static final int abc_search_url_text_selected=0x7f070001;
         public static final int blue=0x7f070004;
+        public static final int dark_grey=0x7f070005;
         public static final int grey=0x7f070003;
     }
     public static final class dimen {
@@ -1253,9 +1254,10 @@ containing a value of this type.
         public static final int activity_skeleton=0x7f030019;
         public static final int fragment_navigation_drawer=0x7f03001a;
         public static final int fragment_new_event=0x7f03001b;
-        public static final int fragment_skeleton=0x7f03001c;
-        public static final int new_event_icon_selector=0x7f03001d;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001e;
+        public static final int fragment_now=0x7f03001c;
+        public static final int fragment_skeleton=0x7f03001d;
+        public static final int new_event_icon_selector=0x7f03001e;
+        public static final int support_simple_spinner_dropdown_item=0x7f03001f;
     }
     public static final class menu {
         public static final int global=0x7f0c0000;
@@ -1320,6 +1322,7 @@ containing a value of this type.
         public static final int new_event_extra_hint=0x7f0a001e;
         public static final int new_event_name_hint=0x7f0a0015;
         public static final int new_note_hint=0x7f0a0016;
+        public static final int now_date_sample=0x7f0a0021;
         public static final int title_section1=0x7f0a000e;
         public static final int title_section2=0x7f0a000f;
         public static final int title_section3=0x7f0a0010;

@@ -121,11 +121,12 @@ int bool abc_config_allowActionMenuItemTextWithIcon 0x7f060004
 int bool abc_config_showMenuShortcutsWhenKeyboardPresent 0x7f060003
 int bool abc_split_action_bar_is_narrow 0x7f060002
 int bool enable_false 0x7f060006
-int color abc_search_url_text_holo 0x7f070005
+int color abc_search_url_text_holo 0x7f070006
 int color abc_search_url_text_normal 0x7f070000
 int color abc_search_url_text_pressed 0x7f070002
 int color abc_search_url_text_selected 0x7f070001
 int color blue 0x7f070004
+int color dark_grey 0x7f070005
 int color grey 0x7f070003
 int dimen abc_action_bar_default_height 0x7f080002
 int dimen abc_action_bar_icon_vertical_padding 0x7f080003
@@ -377,9 +378,10 @@ int layout activity_new_event 0x7f030018
 int layout activity_skeleton 0x7f030019
 int layout fragment_navigation_drawer 0x7f03001a
 int layout fragment_new_event 0x7f03001b
-int layout fragment_skeleton 0x7f03001c
-int layout new_event_icon_selector 0x7f03001d
-int layout support_simple_spinner_dropdown_item 0x7f03001e
+int layout fragment_now 0x7f03001c
+int layout fragment_skeleton 0x7f03001d
+int layout new_event_icon_selector 0x7f03001e
+int layout support_simple_spinner_dropdown_item 0x7f03001f
 int menu global 0x7f0c0000
 int menu new_event 0x7f0c0001
 int menu skeleton 0x7f0c0002
@@ -413,6 +415,7 @@ int string new_event_contact_hint 0x7f0a001d
 int string new_event_extra_hint 0x7f0a001e
 int string new_event_name_hint 0x7f0a0015
 int string new_note_hint 0x7f0a0016
+int string now_date_sample 0x7f0a0021
 int string title_section1 0x7f0a000e
 int string title_section2 0x7f0a000f
 int string title_section3 0x7f0a0010

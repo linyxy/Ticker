@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    
+    <LinearLayout 
+        style="@style/normal_line"
+        android:orientation="horizontal"
+        >
+        <TextView style="@style/icon_space" />
+        
+    </LinearLayout>
+    <FrameLayout 
+        style="@style/normal_line"
+        android:orientation="horizontal">
+
+        <TextView
+            style="@style/padding_weiget"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="center_vertical"
+            android:text="@string/now_date_sample"
+            android:textColor="@color/dark_grey" />
+
+    </FrameLayout>
+	<TextView 
+	    style="@style/normal_line"
+	    android:layout_height="96dp"/>
+    
+
+</LinearLayout>

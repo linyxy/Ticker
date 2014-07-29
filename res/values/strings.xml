@@ -21,4 +21,5 @@
     <string name="new_event_extra_hint">属性</string>
 	<string name="confirm">确定</string>
 	<string name="cancel">取消</string>
+	<string name="now_date_sample">7-28 星期三</string>
 </resources>
