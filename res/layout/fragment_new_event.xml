@@ -166,11 +166,12 @@
                         android:layout_height="match_parent"
                         android:layout_weight="5" />
 
-                    <Button
+                    <EditText
                         android:id="@+id/new_contact_attach"
                         style="@style/padding_pic"
                         android:layout_width="wrap_content"
-                        android:layout_weight="2" />
+                        android:layout_weight="5"
+                        android:hint="@string/new_event_contact_hint" />
 
                     <EditText style="@style/icon_space" />
                 </LinearLayout>
@@ -190,13 +191,14 @@
                         style="@android:attr/spinnerDropDownItemStyle"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="5" />
+                        android:layout_weight="4" />
 
-                    <Button
+                    <EditText
                         android:id="@+id/new_extra_attach"
                         style="@style/padding_pic"
                         android:layout_width="wrap_content"
-                        android:layout_weight="2" />
+                        android:layout_weight="5"
+                        android:hint="@string/new_event_extra_hint" />
 
                     <EditText style="@style/icon_space" />
                 </LinearLayout>

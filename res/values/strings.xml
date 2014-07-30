@@ -9,6 +9,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">Example action</string>
     <string name="action_settings">Settings</string>
+    <!-- new submast page -->
     <string name="new_event_name_hint">事件名称</string>
     <string name="new_note_hint">简要注释或点击＋关联便签</string>
     <string name="icon_selection_often">常用</string>
@@ -17,5 +18,27 @@
     <string name="icon_selection_work">工作</string>
     <string name="icon_selection_lesure">休闲</string>
     <string name="icon_selection_freatured">自定义</string>
-
+    <string name="new_event_contact_hint">联系人</string>
+    <string name="new_event_extra_hint">属性</string>
+	<string name="confirm">确定</string>
+	<string name="cancel">取消</string>
+	
+	<!-- submast content page -->
+	<string name="task_name">重构博客模板</string>
+	<string name="folder_name">二次元</string>
+	<string name="task_time">12:30-15:00</string>
+	<string name="remind">提前10分钟提醒</string>
+	<string name="members">EVA参与</string>
+	<string name="attention">本次模板的注意事项 ></string>	
+	<string name="new_subtask">新子任务</string>
+	<string name="unfinished_subtask_list">重写打印样式表</string>
+	<string name="finished_subtask_list">修复手机版边框</string>
+	<string name="jump">跳转</string>
+	<string name="modify">修改</string>
+	<string name="delete">删除</string>
+	
+	<!-- main page -->
+	<string name="tab_time">时间</string>
+	<string name="tab_file">文件</string>
+	<string name="tab_add">添加</string>
 </resources>

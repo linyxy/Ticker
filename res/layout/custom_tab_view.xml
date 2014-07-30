@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/gray">
+    
+    <TextView
+        android:id="@+id/imagename"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="5dip"      
+        android:text="@string/app_name" 
+        android:textColor="@color/white"
+        android:textSize="14sp"/>      
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"      
+        android:orientation="horizontal" 
+        android:layout_centerInParent="true">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/tab_time"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingLeft="8dip"
+                android:paddingRight="10dip"
+                android:text="@string/tab_time" 
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/tab_scroll_time"
+                android:layout_width="wrap_content"
+                android:layout_height="3dip"
+                android:layout_alignLeft="@id/tab_time"
+                android:layout_alignParentBottom="true"
+                android:layout_alignRight="@id/tab_time"
+                android:background="@drawable/view_pager_scroll" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/tab_file"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:clickable="true"
+                android:gravity="center"
+                android:paddingLeft="8dip"
+                android:paddingRight="10dip"
+                android:text="@string/tab_file" 
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/tab_scroll_file"
+                android:layout_width="wrap_content"
+                android:layout_height="3dip"
+                android:layout_alignLeft="@id/tab_file"
+                android:layout_alignParentBottom="true"
+                android:layout_alignRight="@id/tab_file"
+                android:background="@drawable/view_pager_scroll" />
+        </RelativeLayout>
+           
+    </LinearLayout>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_alignParentBottom="true"
+        android:src="@color/actionbar_bottom_line" />
+
+    <Button
+        android:id="@+id/tab_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/imagename"
+        android:layout_alignBottom="@+id/imagename"
+        android:layout_alignParentRight="true"
+        android:background="@color/black"
+        android:text="@string/tab_add"
+        android:textColor="@color/white"
+        android:textSize="14sp" />
+
+</RelativeLayout>
