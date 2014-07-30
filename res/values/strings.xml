@@ -23,5 +23,6 @@
 	<string name="cancel">取消</string>
 	<string name="now_date_sample">7月28日 星期三</string>
 	<string name="new_time_sample">00:00</string>
-	<string name="now_task_name_defualt">当前没有任务进行着</string>
+	<string name="now_task_name_defualt">当前没有任务进行</string>
+	<string name="now_next_task_name_defualt">接下去没有任务了</string>
 </resources>

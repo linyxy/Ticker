@@ -1105,11 +1105,11 @@ containing a value of this type.
         public static final int action_bar_subtitle=0x7f050023;
         public static final int action_bar_title=0x7f050022;
         public static final int action_context_bar=0x7f05001d;
-        public static final int action_example=0x7f050071;
+        public static final int action_example=0x7f050074;
         public static final int action_menu_divider=0x7f050016;
         public static final int action_menu_presenter=0x7f050017;
         public static final int action_mode_close_button=0x7f050024;
-        public static final int action_settings=0x7f05006e;
+        public static final int action_settings=0x7f050071;
         public static final int activity_chooser_view_content=0x7f050025;
         public static final int always=0x7f05000b;
         public static final int beginning=0x7f050011;
@@ -1137,8 +1137,8 @@ containing a value of this type.
         public static final int never=0x7f050009;
         public static final int new_contact_attach=0x7f05004b;
         public static final int new_date_picker=0x7f050046;
-        public static final int new_event_create=0x7f050070;
-        public static final int new_event_delete=0x7f05006f;
+        public static final int new_event_create=0x7f050073;
+        public static final int new_event_delete=0x7f050072;
         public static final int new_event_fragment=0x7f05003c;
         public static final int new_event_icon_kind_1=0x7f05005a;
         public static final int new_event_icon_kind_2=0x7f05005b;
@@ -1169,11 +1169,14 @@ containing a value of this type.
         public static final int now_confirm=0x7f050054;
         public static final int now_date=0x7f05004f;
         public static final int now_status=0x7f050051;
+        public static final int now_sub_task_finish=0x7f050070;
+        public static final int now_sub_task_list=0x7f050053;
+        public static final int now_sub_task_list_item_icon=0x7f05006e;
+        public static final int now_sub_task_list_item_icon_name=0x7f05006f;
         public static final int now_task_name=0x7f050052;
         public static final int progress_circular=0x7f050018;
         public static final int progress_horizontal=0x7f050019;
         public static final int radio=0x7f05002f;
-        public static final int scrollView1=0x7f050053;
         public static final int search_badge=0x7f050032;
         public static final int search_bar=0x7f050031;
         public static final int search_button=0x7f050033;
@@ -1269,7 +1272,8 @@ containing a value of this type.
         public static final int fragment_now=0x7f03001c;
         public static final int fragment_skeleton=0x7f03001d;
         public static final int new_event_icon_selector=0x7f03001e;
-        public static final int support_simple_spinner_dropdown_item=0x7f03001f;
+        public static final int now_sub_task_list_item=0x7f03001f;
+        public static final int support_simple_spinner_dropdown_item=0x7f030020;
     }
     public static final class menu {
         public static final int global=0x7f0c0000;
@@ -1336,6 +1340,7 @@ containing a value of this type.
         public static final int new_note_hint=0x7f0a0016;
         public static final int new_time_sample=0x7f0a0022;
         public static final int now_date_sample=0x7f0a0021;
+        public static final int now_next_task_name_defualt=0x7f0a0024;
         public static final int now_task_name_defualt=0x7f0a0023;
         public static final int title_section1=0x7f0a000e;
         public static final int title_section2=0x7f0a000f;
