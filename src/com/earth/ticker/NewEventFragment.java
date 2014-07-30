@@ -45,8 +45,8 @@ public class NewEventFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View newEventView = inflater.inflate(R.layout.fragment_new_event, container,false);
-		
-		//TODO 填充页面
+				//TODO 填充页面
+
 		return newEventView;
 	}
 	

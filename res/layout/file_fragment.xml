@@ -2,12 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#ffffff"
     android:orientation="vertical" >
 
-    <FrameLayout
-        android:id="@+id/new_event_fragment"
-        android:name="com.earth.ticker.NewEventFragment"
+    <TextView
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_weight="0.53"
+        android:gravity="center"
+        android:text="File"
+        android:textColor="#000000"
+        android:textSize="30sp" />
 
 </LinearLayout>
