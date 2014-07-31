@@ -3,6 +3,8 @@ package com.earth.ticker;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.earth.time.R;
+
 import android.app.Activity;
 import android.graphics.Paint;
 import android.os.Bundle;

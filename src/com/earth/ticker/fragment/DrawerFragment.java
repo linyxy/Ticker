@@ -1,5 +1,9 @@
-package com.earth.ticker;
-import com.earth.time.R;
+package com.earth.ticker.fragment;
+import com.earth.ticker.NewEventActivity;
+import com.earth.ticker.R;
+import com.earth.ticker.R.id;
+import com.earth.ticker.R.layout;
+import com.earth.ticker.R.menu;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -113,7 +117,7 @@ public  class DrawerFragment extends Fragment implements ActionBar.TabListener
 				fragment=new TimeFragment();
 				break;
 			case 1:
-				fragment=new FileFragment();
+				fragment=new FolderFragment();
 				break;
 			default:
 				break;

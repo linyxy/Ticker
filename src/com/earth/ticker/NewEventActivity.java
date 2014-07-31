@@ -1,9 +1,10 @@
 package com.earth.ticker;
 
 
+import com.earth.time.R;
+
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.os.Bundle;
+import android.app.FragmentTransaction;import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -45,22 +46,26 @@ public class NewEventActivity extends ActionBarActivity {
 		{
 			if(eventCreateCheck())
 			{
-				//TODO 
-			}			
+				//TODO 生成这个新的事件
+			}
+			
 		}
 		if(id == R.id.new_event_delete)
 		{
-			//TODO 
-		}		
+			//TODO 关闭这个窗口返回
+		}
+		
+
 		return super.onOptionsItemSelected(item);
 	}
 	
 	/**
-	 * 
-	 * @return true 
+	 *
+	 * @return true 通过�?��
 	 */
 	private boolean eventCreateCheck(){
-		//TODO 
+		//TODO �?��是否�?��填写的项目都已经填写
+
 		return true;
 	}
 

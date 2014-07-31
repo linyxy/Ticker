@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	style="@style/normal_line"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/now_sub_task_list_item_icon"
+		style="@style/padding_pic"
+        android:src="@drawable/sample_icon" />
+
+    <TextView
+        android:id="@+id/now_sub_task_list_item_icon_name"
+        style="@style/padding_weiget"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ImageButton 
+        	style="@style/padding_pic"
+        	android:id="@+id/now_sub_task_finish"
+        	android:src="@drawable/sample_icon"/>
+    
+    <TextView style="@style/icon_space"/>
+
+</LinearLayout>

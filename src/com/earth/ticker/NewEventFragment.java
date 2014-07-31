@@ -1,5 +1,7 @@
 package com.earth.ticker;
 
+import com.earth.time.R;
+
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -45,8 +47,8 @@ public class NewEventFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		View newEventView = inflater.inflate(R.layout.fragment_new_event, container,false);
-		
-		//TODO 
+				//TODO 填充页面
+
 		return newEventView;
 	}
 	

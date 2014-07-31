@@ -1,5 +1,6 @@
-package com.earth.ticker;
-import com.earth.time.R;
+package com.earth.ticker.fragment;
+import com.earth.ticker.R;
+import com.earth.ticker.R.layout;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
