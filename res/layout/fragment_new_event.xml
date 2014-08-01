@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!-- 事件名称栏 -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/blue"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/new_event_top_icon"
+            style="@style/padding_pic_big"
+            android:src="@drawable/abc_spinner_ab_pressed_holo_light" />
+
+        <TextView
+            android:id="@+id/new_event_name"
+            style="@style/padding_pic_big"
+            android:layout_width="match_parent"
+            android:gravity="center_vertical"
+            android:hint="@string/new_event_name_hint"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </LinearLayout>
+
+    <!-- 让下方列表可以滑动 -->
+
+    <ScrollView
+        android:id="@+id/new_event_scroll_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <include
+                android:id="@+id/new_event_icon_selection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                layout="@layout/new_event_icon_selector" />
+
+            <!-- 下方添加各种设置列表 -->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <!-- 添加标签 -->
+
+                <LinearLayout
+                    style="@style/normal_line"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        style="@style/padding_pic"
+                        android:src="@drawable/sample_icon" />
+
+                    <EditText
+                        android:id="@+id/new_note_text"
+                        style="@style/padding_weiget"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical"
+                        android:hint="@string/new_note_hint"
+                        android:textSize="@dimen/text_small" />
+
+                    <ImageButton
+                        android:id="@+id/new_note_attach"
+                        style="@style/padding_pic"
+                        android:src="@drawable/sample_icon" />
+                </LinearLayout>
+
+                <!-- 事件时间 -->
+
+                <LinearLayout
+                    style="@style/normal_line"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        style="@style/padding_pic"
+                        android:src="@drawable/sample_icon" />
+
+                    <EditText
+                        android:id="@+id/new_date_picker"
+                        style="@style/padding_weiget"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="date" >
+
+                        <requestFocus />
+                    </EditText>
+
+                    <EditText
+                        android:id="@+id/new_time_picker"
+                        style="@style/padding_weiget"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="1"
+                        android:ems="10"
+                        android:inputType="time" />
+
+                    <EditText style="@style/icon_space" />
+                </LinearLayout>
+
+                <!-- 闹钟提醒 -->
+
+                <LinearLayout
+                    style="@style/normal_line"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        style="@style/padding_pic"
+                        android:src="@drawable/sample_icon" />
+                    <!--
+            <TimePicker
+                android:id="@+id/new_alarm_picker"
+                style="@style/padding_weiget"
+                android:layout_width="wrap_content" />
+                    -->
+
+                </LinearLayout>
+
+                <!-- 文件夹设置 -->
+
+                <LinearLayout
+                    style="@style/normal_line"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        style="@style/padding_pic"
+                        android:src="@drawable/sample_icon" />
+
+                    <Spinner
+                        android:id="@+id/new_folder_selction"
+                        style="@android:attr/spinnerDropDownItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <ImageButton
+                        android:id="@+id/new_folder_attach"
+                        style="@style/padding_pic"
+                        android:src="@drawable/sample_icon" />
+                </LinearLayout>
+
+                <!-- 参与人员设置 -->
+
+                <LinearLayout
+                    style="@style/normal_line"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        style="@style/padding_pic"
+                        android:src="@drawable/sample_icon" />
+
+                    <Spinner
+                        android:id="@+id/new_participate_text"
+                        style="@android:attr/spinnerDropDownItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="5" />
+
+                    <EditText
+                        android:id="@+id/new_contact_attach"
+                        style="@style/padding_pic"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="5"
+                        android:hint="@string/new_event_contact_hint" />
+
+                    <EditText style="@style/icon_space" />
+                </LinearLayout>
+
+                <!-- 额外属性 -->
+
+                <LinearLayout
+                    style="@style/normal_line"
+                    android:orientation="horizontal" >
+
+                    <ImageView
+                        style="@style/padding_pic"
+                        android:src="@drawable/sample_icon" />
+
+                    <Spinner
+                        android:id="@+id/new_extra_text"
+                        style="@android:attr/spinnerDropDownItemStyle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="4" />
+
+                    <EditText
+                        android:id="@+id/new_extra_attach"
+                        style="@style/padding_pic"
+                        android:layout_width="wrap_content"
+                        android:layout_weight="5"
+                        android:hint="@string/new_event_extra_hint" />
+
+                    <EditText style="@style/icon_space" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <ListView
+                android:id="@+id/new_sub_event"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingLeft="12dp"
+                android:paddingRight="1dp" >
+            </ListView>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
