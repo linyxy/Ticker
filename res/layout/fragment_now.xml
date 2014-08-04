@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!-- 下面两个为日期和时间现实 -->
+
+    <FrameLayout
+        style="@style/normal_line"
+        android:orientation="horizontal"
+        android:paddingBottom="0dp" >
+
+        <TextView
+            android:id="@+id/now_date"
+            style="@style/padding_weiget"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="bottom"
+            android:text="@string/now_date_sample"
+            android:textColor="@color/dark_grey" 
+            android:textSize="@dimen/text_small"/>
+    </FrameLayout>
+
+    <FrameLayout
+        style="@style/normal_line"
+        android:layout_height="wrap_content"
+        android:paddingTop="0dp" >
+
+        <TextClock
+            android:id="@+id/now_clock"
+            style="@style/padding_weiget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="top"
+            android:textSize="@dimen/new_time_text" />
+    </FrameLayout>
+
+    <!-- 正在进行 -->
+
+    <FrameLayout
+        style="@style/normal_line"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:paddingBottom="0dp" >
+
+        <TextView
+            android:id="@+id/now_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:gravity="bottom"
+            android:paddingBottom="0dp"
+            android:text="@string/now_task_name_defualt"
+            android:textColor="@color/dark_grey" />
+    </FrameLayout>
+
+    <FrameLayout
+        style="@style/normal_line"
+        android:layout_height="wrap_content"
+        android:paddingTop="0dp" >
+
+        <TextView
+            android:id="@+id/now_task_name"
+            style="@style/padding_weiget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="top"
+            android:text="@string/now_task_name_defualt"
+            android:textSize="@dimen/text_large" />
+    </FrameLayout>
+
+    <!-- 用来放置三个子任务，这个东西可滚动 -->
+
+        <ListView
+
+        android:layout_width="match_parent"
+        android:layout_height="144dp"
+        android:id="@+id/now_sub_task_list"
+            android:orientation="vertical" >
+        
+        </ListView>
+
+
+    <LinearLayout
+        style="@style/normal_line"
+        android:gravity="center_horizontal"
+        android:orientation="horizontal" >
+
+        <ImageButton
+            android:id="@+id/now_confirm"
+            style="@style/padding_pic"
+            android:src="@drawable/sample_icon" />
+
+        <TextView style="@style/icon_space" />
+
+        <ImageButton
+            android:id="@+id/now_cansel"
+            style="@style/padding_pic"
+            android:src="@drawable/sample_icon" />
+
+        <TextView style="@style/icon_space" />
+
+        <ImageButton
+            android:id="@+id/now_back"
+            style="@style/padding_pic"
+            android:src="@drawable/sample_icon" />
+    </LinearLayout>
+
+    <!-- 一个空行 -->
+    <!-- 任务选项 -->
+
+
+    <!-- 一个空行 -->
+    <!-- 即将到来 -->
+
+    <FrameLayout
+        style="@style/normal_line"
+        android:layout_height="35dp"
+        android:orientation="horizontal"
+        android:paddingBottom="0dp" >
+
+        <TextView
+            android:id="@+id/now_coming_task_discription"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|bottom"
+            android:gravity="bottom"
+            android:paddingBottom="0dp"
+            android:text="@string/now_task_name_defualt"
+            android:textColor="@color/dark_grey" />
+    </FrameLayout>
+
+    <FrameLayout
+        style="@style/normal_line"
+        android:layout_height="wrap_content"
+        android:paddingTop="0dp" >
+
+        <TextView
+            android:id="@+id/now_coming_task_name"
+            style="@style/padding_weiget"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:gravity="top"
+            android:text="@string/now_next_task_name_defualt"
+            android:textSize="@dimen/text_large" />
+    </FrameLayout>
+
+</LinearLayout>

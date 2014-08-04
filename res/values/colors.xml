@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+	<color name="grey">#E7E7E7</color>
+	<color name="blue">#3CB6E3</color>
+	<color name="dark_grey">#6E6E6E</color>
+	<color name="white">#ffffff</color>
+	<color name="gray">#F2F2F2</color>
+	<color name="black">#000000</color>
+	<color name="grayheight">#DEDEDE</color>
+	<color name="actionbar_title">#33b5e5</color>
+	<color name="actionbar_bottom_line">#2db5e5</color>
+	<color name="ab_bg_dark">#11111111</color>
+</resources>

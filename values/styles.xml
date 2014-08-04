@@ -1,0 +1,76 @@
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<!-- Base application theme, dependent on API level. This theme is replaced 
+		by AppBaseTheme from res/values-vXX/styles.xml on newer devices. -->
+	<style name="AppBaseTheme" parent="android:Theme.Holo.Light">
+		<!-- Theme customizations available in newer API levels can go in res/values-vXX/styles.xml, 
+			while customizations related to backward-compatibility can go here. -->
+
+	</style>
+
+	<!-- Application theme. -->
+	<style name="AppTheme" parent="AppBaseTheme">
+		<!-- All customizations that are NOT specific to a particular API-level 
+			can go here. -->
+		<item name="android:textSize">18sp</item>
+
+	</style>
+
+	<style name="normal_drawble">
+		<item name="android:layout_width">40dp</item>
+		<item name="android:layout_height">40dp</item>
+		<item name="android:padding">2dp</item>
+		<item name="android:scaleType">centerInside</item>
+		<item name="android:src">@drawable/abc_cab_background_top_holo_light</item>
+		<item name="android:layout_weight">1</item>
+	</style>
+
+	<style name="normal_line">
+		<!-- 根据Google design这里的横条设定高度为48dp(wrap_content)，左右padding16dp，有4dp控件写入，所以是12dp -->
+		<item name="android:layout_width">match_parent</item>
+		<item name="android:layout_height">wrap_content</item>
+		<item name="android:paddingLeft">12dp</item>
+		<item name="android:paddingRight">12dp</item>
+
+	</style>
+
+	<style name="padding_weiget">
+		<!-- 这个Google deisgn 标准控件的style，四边的padding都是4dp，高度与是48-8dp，横向自定义 -->
+		<item name="android:padding">4dp</item>
+		<item name="android:layout_height">48dp</item>
+	</style>
+
+	<style name="padding_pic_big" parent="padding_weiget">
+		<!-- 大的点击图标，padding4dp版本 -->
+		<item name="android:layout_width">48dp</item>
+		<item name="android:layout_height">48dp</item>
+		<item name="android:scaleType">centerInside</item>
+
+	</style>
+
+	<style name="padding_pic" parent="padding_pic_big">
+		<!-- 正常的图标点按大小，上下padding为8dp，高度为48-16dp -->
+		<item name="android:paddingTop">8dp</item>
+		<item name="android:paddingBottom">8dp</item>
+		<item name="android:layout_height">48dp</item>
+		<item name="android:layout_width">48dp</item>
+
+	</style>
+
+	<style name="icon_selection_text" parent="padding_weiget">
+		<!-- 图标选择上方选择文字的style -->
+		<item name="android:layout_weight">1</item>
+		<item name="android:textSize">13sp</item>
+		<item name="android:gravity">center_vertical|center_horizontal</item>
+	</style>
+
+	<style name="icon_space" parent="padding_pic">
+		<!-- 一个大小等于一般icon的透明不可选取填充物 -->
+		<item name="android:visibility">invisible</item>
+		<item name="android:enabled">@bool/enable_false</item>
+	</style>
+
+
+
+
+</resources>

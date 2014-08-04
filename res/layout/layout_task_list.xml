@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    android:orientation="horizontal">
+    <ImageButton 
+        android:id="@+id/taskImage"
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginLeft="16dp"
+        android:layout_gravity="center"
+        android:src="@drawable/sample_icon"
+        />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginLeft="8dp"
+        android:orientation="vertical"
+        android:paddingBottom="4dp"
+        android:paddingTop="4dp" >
+
+        <TextView
+            android:id="@+id/taskName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"          
+            android:text="@string/taskName"
+            android:textColor="@color/black"
+            android:singleLine="true" 
+            android:ellipsize="end" />
+        <TextView
+            android:id="@+id/taskSign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/taskSign"
+            android:textColor="@color/black"
+            android:singleLine="true" 
+            android:ellipsize="end" />
+    </LinearLayout>
+
+</LinearLayout>
