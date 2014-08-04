@@ -1,4 +1,4 @@
-package com.earth.ticker;
+package com.earth.ticker.fragment;
 
 import com.earth.time.R;
 

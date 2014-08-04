@@ -1,13 +1,13 @@
 package com.earth.ticker.fragment;
-
-
-
+import android.app.ActionBar;
+import android.app.ActionBar.Tab;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
@@ -17,6 +17,7 @@ import android.widget.ImageView;
 
 import com.earth.ticker.NewEventActivity;
 import com.earth.time.R;
+
 public  class DrawerFragment extends Fragment implements ActionBar.TabListener
 {
 	private SectionPagerAdapter msectionPagerAdapter;	
@@ -99,7 +100,7 @@ public  class DrawerFragment extends Fragment implements ActionBar.TabListener
 	public class SectionPagerAdapter extends FragmentPagerAdapter
 	{
 
-		public SectionPagerAdapter(android.support.v4.app.FragmentManager fragmentManager) 
+		public SectionPagerAdapter(FragmentManager fragmentManager) 
 		{
 			super(fragmentManager);
 			// TODO Auto-generated constructor stub			
@@ -125,7 +126,6 @@ public  class DrawerFragment extends Fragment implements ActionBar.TabListener
 			return fragment;
 		}
 
-		@Override
 		public int getCount() 
 		{
 			// TODO Auto-generated method stub
@@ -140,22 +140,33 @@ public  class DrawerFragment extends Fragment implements ActionBar.TabListener
 		return true;
 	}	
 
-	public void onTabReselected(android.support.v7.app.ActionBar.Tab arg0,
+	public void onTabReselected(ActionBar.Tab arg0,
 			android.support.v4.app.FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
-	public void onTabSelected(android.support.v7.app.ActionBar.Tab arg0,
-			android.support.v4.app.FragmentTransaction arg1) {
+	
+	public void onTabSelected(ActionBar.Tab arg0,
+			FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	@Override
 	public void onTabUnselected(android.support.v7.app.ActionBar.Tab arg0,
-			android.support.v4.app.FragmentTransaction arg1) {
+			FragmentTransaction arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
 		
 	}
