@@ -33,10 +33,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		Log.d(DBtag, "create a Database");
-
-		// crate table event TODO
-		// db.execSQL("CREATE TABLE IF NOT EXISTS events (content TEXT,id TEXT,PRIMARY KEY (id))");
-
+		//create table events
+		db.execSQL("CREATE TABLE IF NOT EXISTS events (id INTEGER PRIMARY KEY AUTOINCREMENT ,time_stamp INTEGER,"
+				+ "name TEXT NOT NULL,time_start INTEGER,duration INTEGER,repeat TEXT,alarm INTEGER, alarm_name TEXT" +
+				"alarm_address TEXT, extra TEXT, event_state INTEGER)");
+		// create table event_folder_related
+		db.execSQL("CREATE TABLE IF NOT EXISTS event_folder_related(name TEXT,event_id INTEGER");
 		// create table notes
 		db.execSQL("CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT ,time_stamp INTEGER,"
 				+ "content TEXT,last_change_date INTEGER)");
