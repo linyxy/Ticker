@@ -15,7 +15,7 @@ public class SQLOperate {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+		
 
 	}
 
@@ -42,6 +42,33 @@ public class SQLOperate {
 		}
 		db.close();
 		return ifSuccessful;
+	}
+	
+	/**
+	 * basic query method
+	 * even myself found this method useless
+	 * 我也觉得这个函数没啥用
+	 * @param ctx
+	 * @param sql
+	 * @param selectionArgs
+	 * @return
+	 */
+	public static Cursor basicQuery(Context ctx,String sql,String[] selectionArgs) {
+		DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
+		SQLiteDatabase db = databaseHelper.getReadableDatabase();
+		Cursor cur = null;
+		db.beginTransaction();// 开始事务
+		try {
+			
+			cur = db.rawQuery(sql, selectionArgs);
+			db.setTransactionSuccessful();// 调用此方法会在执行到endTransaction()
+											// 时提交当前事务，如果不调用此方法会回滚事务
+			Log.d(DBtag, "success operation");
+		} finally {
+			db.endTransaction();// 由事务的标志决定是提交事务，还是回滚事务
+		}
+		db.close();
+		return cur;
 	}
 
 	/**
