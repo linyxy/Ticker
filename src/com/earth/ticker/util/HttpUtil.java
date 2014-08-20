@@ -67,7 +67,7 @@ public class HttpUtil
 	/**
 	 * 
 	 * @param url ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½URL
-	 * @param params ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	 * @param params ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
 	 * @return ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó¦ï¿½Ö·ï¿½
 	 * @throws Exception
 	 */
@@ -85,10 +85,10 @@ public class HttpUtil
 		for(String key : rawParams.keySet())
 		{
 			System.out.println("key name: "+key+" key value: "+rawParams.get(key));
-			//ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+			//ï¿½ï¿½×°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
 			params.add(new BasicNameValuePair(key , rawParams.get(key)));
 		}
-		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+		// ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿?
 		post.setEntity(new UrlEncodedFormEntity(
 			params, "UTF-8"));
 		Log.d(HttpTag, "encoded the pattern into post");

@@ -37,7 +37,7 @@ public class DialogUtil
 		}
 		builder.create().show();
 	}	
-	// ����һ����ʾָ������ĶԻ���
+	// ����һ����ʾָ������ĶԻ���?
 	public static void showDialog(Context ctx , View view)
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(ctx)

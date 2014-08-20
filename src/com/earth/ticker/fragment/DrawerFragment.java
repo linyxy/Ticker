@@ -1,12 +1,14 @@
 package com.earth.ticker.fragment;
+
+
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -17,6 +19,9 @@ import android.widget.ImageView;
 
 import com.earth.ticker.NewEventActivity;
 import com.earth.ticker.R;
+
+
+
 
 public  class DrawerFragment extends Fragment implements ActionBar.TabListener
 {
@@ -140,12 +145,6 @@ public  class DrawerFragment extends Fragment implements ActionBar.TabListener
 		return true;
 	}	
 
-	public void onTabReselected(ActionBar.Tab arg0,
-			android.support.v4.app.FragmentTransaction arg1) {
-		// TODO Auto-generated method stub
-		
-	}
-
 	
 	public void onTabSelected(ActionBar.Tab arg0,
 			FragmentTransaction arg1) {
@@ -159,19 +158,23 @@ public  class DrawerFragment extends Fragment implements ActionBar.TabListener
 		
 	}
 
+	
 	@Override
-	public void onTabReselected(Tab arg0, FragmentTransaction arg1) {
+	public void onTabReselected(Tab arg0, android.app.FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void onTabUnselected(Tab arg0, FragmentTransaction arg1) {
+	public void onTabSelected(Tab arg0, android.app.FragmentTransaction arg1) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	
-	
+	@Override
+	public void onTabUnselected(Tab arg0, android.app.FragmentTransaction arg1) {
+		// TODO Auto-generated method stub
+		
+	}	
 	
 }

@@ -7,7 +7,7 @@
      <ImageView 
         style="@style/padding_pic"
         android:background="@drawable/sample_icon"
-        android:visibility="invisible"/>"
+        android:visibility="invisible"/>
     <TextView 
         android:layout_width="wrap_content"            
         style="@style/padding_pic_big"
