@@ -14,22 +14,26 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="com.earth.ticker.SkeletonActivity"
+            android:name=".SkeletonActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name="com.earth.ticker.NewEventActivity">           
+            android:name=".DetailsEventActivity">           
         </activity>
         <activity
-            android:name="com.earth.ticker.DetailsEventActivity">           
+            android:name=".NewEventActivity">          
         </activity>
         <activity
-            android:name="com.earth.ticker.NowActivity">           
+            android:name=".NowActivity">          
+        </activity>
+        <activity
+            android:name=".AddDeleteFolderActivity">          
         </activity>
     </application>
-
+ <uses-permission android:name="android.permission.VIBRATE"/> 
 </manifest>
