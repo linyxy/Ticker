@@ -1,8 +1,5 @@
 package com.earth.ticker.assist;
 
-import android.R.string;
-import android.app.AlertDialog.Builder;
-import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
 import android.view.View;
@@ -25,16 +22,16 @@ public class AlertDialog {
 	LinearLayout buttonLayout;
 	
 	public AlertDialog(Context context) {
-		// TODO Auto-generated constructor stub
+		// 
 		this.context=context;
 		ad=new android.app.AlertDialog.Builder(context).create();
-		//µã»÷dialogÍâÏûÊ§
+		//ç‚¹å‡»dialogå¤–æ¶ˆå¤±
 		ad.setCanceledOnTouchOutside(true);
 		ad.show();
-		//¹Ø¼üÔÚÏÂÃæµÄÁ½ĞĞ,Ê¹ÓÃwindow.setContentView,Ìæ»»Õû¸ö¶Ô»°¿ò´°¿ÚµÄ²¼¾Ö
+		//å…³é”®åœ¨ä¸‹é¢çš„ä¸¤è¡Œ,ä½¿ç”¨window.setContentView,æ›¿æ¢æ•´ä¸ªå¯¹è¯æ¡†çª—å£çš„å¸ƒå±€
 		Window window = ad.getWindow();
 		window.setContentView(R.layout.addfolder_alertdialog);
-		//µ¯³öÈí¼üÅÌ
+		//å¼¹å‡ºè½¯é”®ç›˜
 		window.clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 		titleView=(TextView)window.findViewById(R.id.title);
 		messageView=(TextView)window.findViewById(R.id.message);
@@ -56,7 +53,7 @@ public class AlertDialog {
 	}
 		
 	public void setEdit(boolean visible) {
-		// TODO Auto-generated method stub
+		// 
 		if(visible)
 		{
 			folderName.setVisibility(View.VISIBLE);
@@ -70,7 +67,7 @@ public class AlertDialog {
 		return folderName.getText().toString();
 	}
 	/**
-	 * ÉèÖÃ°´Å¥
+	 * è®¾ç½®æŒ‰é’®
 	 * @param text
 	 * @param listener
 	 */
@@ -84,7 +81,7 @@ public class AlertDialog {
 	}
  
 	/**
-	 * ÉèÖÃ°´Å¥
+	 * è®¾ç½®æŒ‰é’®
 	 * @param text
 	 * @param listener
 	 */
@@ -99,7 +96,7 @@ public class AlertDialog {
  
 	}
 	/**
-	 * ¹Ø±Õ¶Ô»°¿ò
+	 * å…³é—­å¯¹è¯æ¡†
 	 */
 	public void dismiss() {
 		ad.dismiss();

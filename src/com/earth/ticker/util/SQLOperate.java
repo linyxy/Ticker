@@ -1,5 +1,6 @@
 package com.earth.ticker.util;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.content.ContentValues;
@@ -69,6 +70,54 @@ public class SQLOperate {
 		}
 		db.close();
 		return cur;
+	}
+	
+	/**
+	 * Method to get all the folders
+	 * @param ctx
+	 * @return
+	 */
+	public static ArrayList<String> getAllFolders(Context ctx)
+	{
+		ArrayList<String> folders = new ArrayList<String>();
+		String sql = "select * from  event_folder_related";
+		Cursor result= basicQuery(ctx,sql,null);
+		while(result.moveToNext())
+		{
+			String folder = result.getString(result.getColumnIndex("name"));
+			if(!folders.contains(folder))
+			{
+				folders.add(folder);
+			}
+		}
+		
+		return folders;
+		
+	}
+	
+	/**
+	 * method to get all eventIdBy the name of folder
+	 * @param ctx
+	 * @param folderName
+	 * @return
+	 */
+	public static ArrayList<Long> getAllEventIdbyFolder(Context ctx,String folderName)
+	{
+		
+		ArrayList<Long> eventIds = new ArrayList<Long>();
+		String sql = "select * from  event_folder_related WHERE event_id=?";
+		String[] folder= new String[]{"folderName"};
+		Cursor result= basicQuery(ctx,sql,folder);
+		while(result.moveToNext())
+		{
+			long event = result.getLong(result.getColumnIndex("event_id"));
+			if(!eventIds.contains(event))
+			{
+				eventIds.add(event);
+			}
+		}
+		
+		return eventIds;
 	}
 
 	/**

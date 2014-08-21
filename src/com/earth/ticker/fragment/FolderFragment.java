@@ -56,13 +56,13 @@ public class FolderFragment extends Fragment{
 		groupData=new ArrayList<HashMap<String,Object>>();
 		childData=new ArrayList<ArrayList<HashMap<String,Object>>> ();
 		
-		//´´½¨groupLocation¶ÔÏó
+		//åˆ›å»ºgroupLocationå¯¹è±¡
 		
-		TasksInfo task1=new TasksInfo("ºÍĞ¡»ï°éÃÇ´òDota","ÍæLOLµÄ¶¼ÊÇĞ¡Ñ§Éú",R.drawable.sample_icon,"¶ş´ÎÔª");
-		TasksInfo task2=new TasksInfo("ºÍĞ¡»ï°éÃÇ´òDota","ÍæLOLµÄ¶¼ÊÇĞ¡Ñ§Éú",R.drawable.sample_icon,"Ä£°åTODO");
-		TasksInfo task3=new TasksInfo("ºÍĞ¡»ï°éÃÇ´òDota","ÍæLOLµÄ¶¼ÊÇĞ¡Ñ§Éú",R.drawable.sample_icon,"Èı´ÎÔª");
-		TasksInfo task4=new TasksInfo("ºÍĞ¡»ï°éÃÇ´òDota","ÍæLOLµÄ¶¼ÊÇĞ¡Ñ§Éú",R.drawable.sample_icon,"Èı´ÎÔª");
-		TasksInfo task5=new TasksInfo("ºÍĞ¡»ï°éÃÇ´òDota","ÍæLOLµÄ¶¼ÊÇĞ¡Ñ§Éú",R.drawable.sample_icon,"Ä£°åTODO");
+		TasksInfo task1=new TasksInfo("å’Œå°ä¼™ä¼´ä»¬æ‰“Dota","ç©LOLçš„éƒ½æ˜¯å°å­¦ç”Ÿ",R.drawable.sample_icon,"äºŒæ¬¡å…ƒ");
+		TasksInfo task2=new TasksInfo("å’Œå°ä¼™ä¼´ä»¬æ‰“Dota","ç©LOLçš„éƒ½æ˜¯å°å­¦ç”Ÿ",R.drawable.sample_icon,"æ¨¡æ¿TODO");
+		TasksInfo task3=new TasksInfo("å’Œå°ä¼™ä¼´ä»¬æ‰“Dota","ç©LOLçš„éƒ½æ˜¯å°å­¦ç”Ÿ",R.drawable.sample_icon,"ä¸‰æ¬¡å…ƒ");
+		TasksInfo task4=new TasksInfo("å’Œå°ä¼™ä¼´ä»¬æ‰“Dota","ç©LOLçš„éƒ½æ˜¯å°å­¦ç”Ÿ",R.drawable.sample_icon,"ä¸‰æ¬¡å…ƒ");
+		TasksInfo task5=new TasksInfo("å’Œå°ä¼™ä¼´ä»¬æ‰“Dota","ç©LOLçš„éƒ½æ˜¯å°å­¦ç”Ÿ",R.drawable.sample_icon,"æ¨¡æ¿TODO");
 		
 		addUser(task1);
 		addUser(task2);
@@ -81,19 +81,19 @@ public class FolderFragment extends Fragment{
 		addUser(task4);
 		addUser(task5);
 								  		  
-		//²»ÄÜÓÃHashMapµÄÊµ²Î¸³¸øMapĞÎ²Î£¬Ö»ÄÜnewÒ»¸öHashMap¶ÔÏó¸³¸øMapµÄÒıÓÃ£¡
+		//ä¸èƒ½ç”¨HashMapçš„å®å‚èµ‹ç»™Mapå½¢å‚ï¼Œåªèƒ½newä¸€ä¸ªHashMapå¯¹è±¡èµ‹ç»™Mapçš„å¼•ç”¨ï¼
 				
 		exListView=(ExpandableListView)view.findViewById(R.id.expandable_list);
 		adapter=new MyExpandableListViewAdapter(getActivity(),groupData,R.layout.layout_list_folder,groupFrom,groupTo,childData,R.layout.layout_list_task,childFrom,childTo );
 		exListView.setAdapter(adapter);
 	
-		//×ÓÁĞ±íµã»÷ÊÂ¼ş¼àÌı£¬Ìø×ªµ½¾ßÌåÈÎÎñ½çÃæ
+		//å­åˆ—è¡¨ç‚¹å‡»äº‹ä»¶ç›‘å¬ï¼Œè·³è½¬åˆ°å…·ä½“ä»»åŠ¡ç•Œé¢
 		exListView.setOnChildClickListener(new OnChildClickListener() {
 			
 			@Override
 			public boolean onChildClick(ExpandableListView parent, View v,
 					int groupPosition, int childPosition, long id) {
-				// TODO Auto-generated method stub				
+				// 				
 				Intent intent=new Intent();
 				intent.setClass(getActivity(), DetailsEventActivity.class);
 				getActivity().startActivity(intent);
@@ -101,19 +101,19 @@ public class FolderFragment extends Fragment{
 			}
 		});	
 		
-		//»ñµÃfolder itemµÄÊµ¼Ê¸ß¶È							
+		//è·å¾—folder itemçš„å®é™…é«˜åº¦							
 		View exGroupListItem= exListView.getExpandableListAdapter().getGroupView(0,false,null,exListView );
 	    exGroupListItem.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 		exGroupListItem.measure(0, 0);
 		GROUP_HEIGHT=exGroupListItem.getMeasuredHeight();
 		
-		//»ñµÃtask itemµÄÊµ¼Ê¸ß¶È
+		//è·å¾—task itemçš„å®é™…é«˜åº¦
 		View exChildListItem=exListView.getExpandableListAdapter().getChildView(0, 0,false,null,exListView);
 		exChildListItem.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT));
 		exChildListItem.measure(0, 0);
 		CHILD_HEIGHT=exChildListItem.getMeasuredHeight();
 		
-		//ÉèÖÃfolder viewgroupµÄ¸ß¶È
+		//è®¾ç½®folder viewgroupçš„é«˜åº¦
 		ViewGroup.LayoutParams  params= exListView.getLayoutParams();
 		height=groupData.size()*GROUP_HEIGHT-2;
 		params.height=height;
@@ -128,19 +128,19 @@ public class FolderFragment extends Fragment{
 		return view;
 	}
 	
-	//³¤°´¸¸ÁĞ±í£¬ÏÔÊ¾popupwindow
+	//é•¿æŒ‰çˆ¶åˆ—è¡¨ï¼Œæ˜¾ç¤ºpopupwindow
 	 class LongItemClick implements OnItemLongClickListener
 	{		
 		@Override
 		public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 				int arg2, long arg3) {
 			int position=arg2;
-			// TODO Auto-generated method stub
+			// 
 			for(int i=0;i<groupData.size();i++)
 			{
 				if(position==(Integer)groupData.get(i).get("location"))
 				{
-					//Toast.makeText(getActivity(), "³¤°´µã»÷", Toast.LENGTH_LONG).show();
+					//Toast.makeText(getActivity(), "é•¿æŒ‰ç‚¹å‡»", Toast.LENGTH_LONG).show();
 					showPopUp(arg1,arg2,i); 
                     
 				}
@@ -149,28 +149,28 @@ public class FolderFragment extends Fragment{
 		}
 	}
 	 
-	 //popupwindowÏÔÊ¾º¯Êı£¬µã»÷Ìø×ªµ½Ìí¼Ó£¬É¾³ıÎÄ¼ş¼Ğ½çÃæ
+	 //popupwindowæ˜¾ç¤ºå‡½æ•°ï¼Œç‚¹å‡»è·³è½¬åˆ°æ·»åŠ ï¼Œåˆ é™¤æ–‡ä»¶å¤¹ç•Œé¢
 	 private void showPopUp(View view,int position,int i)
 	 {
 		 
 		    Vibrator vibrator =(Vibrator)getActivity().getSystemService(Service.VIBRATOR_SERVICE);  		  		   		   
 		    vibrator.vibrate(30);
-		    //popUpWindow²¼¾Ö		 
+		    //popUpWindowå¸ƒå±€		 
 			LayoutInflater inflater1 = LayoutInflater.from(getActivity()); 
 			View viewpop=inflater1.inflate(R.layout.popupwindow_layout, null);
 			pop = new PopupWindow(view, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, false);
 			pop.setContentView(viewpop);
 			Button btn = (Button)viewpop.findViewById(R.id.popwindow_Button);				
-			// ĞèÒªÉèÖÃÒ»ÏÂ´Ë²ÎÊı£¬µã»÷Íâ±ß¿ÉÏûÊ§ 		
+			// éœ€è¦è®¾ç½®ä¸€ä¸‹æ­¤å‚æ•°ï¼Œç‚¹å‡»å¤–è¾¹å¯æ¶ˆå¤± 		
 			pop.setBackgroundDrawable(new BitmapDrawable()); 		
-			//ÉèÖÃµã»÷´°¿ÚÍâ±ß´°¿ÚÏûÊ§ 		 
+			//è®¾ç½®ç‚¹å‡»çª—å£å¤–è¾¹çª—å£æ¶ˆå¤± 		 
 			pop.setOutsideTouchable(true); 		
-			// ÉèÖÃ´Ë²ÎÊı»ñµÃ½¹µã£¬·ñÔòÎŞ·¨µã»÷ 		
+			// è®¾ç½®æ­¤å‚æ•°è·å¾—ç„¦ç‚¹ï¼Œå¦åˆ™æ— æ³•ç‚¹å‡» 		
 			pop.setFocusable(true);	
-			//»ñµÃÆÁÄ»¿í¶È
+			//è·å¾—å±å¹•å®½åº¦
 			WindowManager wm = (WindowManager) getActivity().getSystemService(Context.WINDOW_SERVICE); 
             int width = wm.getDefaultDisplay().getWidth();
-            //»ñµÃ¿Ø¼şµÄÎ»ÖÃ
+            //è·å¾—æ§ä»¶çš„ä½ç½®
             int[] location=new int[2];
             view.getLocationInWindow(location);
             
@@ -181,7 +181,7 @@ public class FolderFragment extends Fragment{
 				
 				@Override
 				public void onClick(View arg0) {
-					// TODO Auto-generated method stub
+					// 
 					pop.dismiss();
 					Intent intent=new Intent();
 					intent.setClass(getActivity(),AddDeleteFolderActivity.class);
@@ -192,17 +192,17 @@ public class FolderFragment extends Fragment{
 			
 	 }
 	
-    //ÏòÁĞ±íÖĞÌí¼ÓÎÄ¼ş¼Ğ£¬Õâ¸öº¯ÊıÔİÊ±Ğ´ÔÚÕâ£¬ºóÌ¨Íê³Éºó£¬Ó¦¸ÃĞ´µ½Ìí¼Ó£¬É¾³ıÎÄ¼ş¼Ğ½çÃæÖĞ
+    //å‘åˆ—è¡¨ä¸­æ·»åŠ æ–‡ä»¶å¤¹ï¼Œè¿™ä¸ªå‡½æ•°æš‚æ—¶å†™åœ¨è¿™ï¼Œåå°å®Œæˆåï¼Œåº”è¯¥å†™åˆ°æ·»åŠ ï¼Œåˆ é™¤æ–‡ä»¶å¤¹ç•Œé¢ä¸­
 	protected void addUser(TasksInfo task)
 	{
 		int i;
-		//ÅĞ¶Ï¼ÓÈëµÄÎÄ¼ş¼ĞÊÇ·ñÒÑ¾­´æÔÚ
+		//åˆ¤æ–­åŠ å…¥çš„æ–‡ä»¶å¤¹æ˜¯å¦å·²ç»å­˜åœ¨
 		for(i=0; i< groupData.size(); i++){
 			if(groupData.get(i).get("folderName").toString().equals(task.folderInfo)){
 				break;
 			}
 		}
-		//Èç¹û¼ÓÈëµÄÎÄ¼ş¼Ğ²»´æÔÚ£¬Ôò¼ÓÈë²¢ÉèÖÃtasksCountÎª0£»
+		//å¦‚æœåŠ å…¥çš„æ–‡ä»¶å¤¹ä¸å­˜åœ¨ï¼Œåˆ™åŠ å…¥å¹¶è®¾ç½®tasksCountä¸º0ï¼›
 		if(i>=groupData.size()){
 			HashMap<String,Object> map=new HashMap<String,Object>();
 			
@@ -213,13 +213,13 @@ public class FolderFragment extends Fragment{
 			ArrayList<HashMap<String,Object>> list=new ArrayList<HashMap<String,Object>>();
 			childData.add(list);
 		}
-		//Ìí¼ÓÈÎÎñĞÅÏ¢µ½ÈÎÎñÁĞ±í
+		//æ·»åŠ ä»»åŠ¡ä¿¡æ¯åˆ°ä»»åŠ¡åˆ—è¡¨
 		HashMap<String,Object> tasksData=new HashMap<String,Object>();
 		tasksData.put("taskImage",task.taskImage );
 		tasksData.put("taskName", task.taskName);
 		tasksData.put("taskSign", task.taskSign);
 		childData.get(i).add(tasksData);
-		//Ìí¼ÓÈÎÎñÊıÄ¿
+		//æ·»åŠ ä»»åŠ¡æ•°ç›®
 		Integer count=(Integer)groupData.get(i).get("tasksCount")+1;
 		groupData.get(i).put("tasksCount", count);    
 		groupData.get(i).put("expanded", false);
@@ -227,7 +227,7 @@ public class FolderFragment extends Fragment{
 	}	
 
 	/**
-	 * ExpandableListView¶ÔÓ¦µÄÊÊÅäÆ÷	
+	 * ExpandableListViewå¯¹åº”çš„é€‚é…å™¨	
 	 */
 	public class MyExpandableListViewAdapter extends BaseExpandableListAdapter{
 		
@@ -265,13 +265,12 @@ public class FolderFragment extends Fragment{
 
 		@Override
 		public Object getChild(int arg0, int arg1) {
-			// TODO Auto-generated method stub
+			// 
 			return null;
 		}
 
 		/**
-		 * positionÓëidÒ»Ñù£¬¶¼ÊÇ´Ó0¿ªÊ¼¼ÆÊıµÄ£¬
-		 * ÕâÀï·µ»ØµÄidÒ²ÊÇ´Ó0¿ªÊ¼¼ÆÊıµÄ
+		 * positionä¸idä¸€æ ·ï¼Œéƒ½æ˜¯ä»0å¼€å§‹è®¡æ•°çš„ï¼Œ		 * è¿™é‡Œè¿”å›çš„idä¹Ÿæ˜¯ä»0å¼€å§‹è®¡æ•°çš„
 		 */
 		@Override
 		public long getChildId(int groupPosition, int childPosition) {
@@ -284,7 +283,7 @@ public class FolderFragment extends Fragment{
 			return id;           
 		}
 		
-		/**ChildViewHolderÄÚ²¿Àà**/
+		/**ChildViewHolderå†…éƒ¨ç±»**/
 	    class ChildViewTask{
 			ImageButton taskImage=null;
 			TextView taskName=null;
@@ -293,17 +292,17 @@ public class FolderFragment extends Fragment{
 	    	   	    	    
 		@Override
 		public View getChildView(int groupPosition, int childPosition,boolean isLastChild,View convertView, ViewGroup parent) {
-			// TODO Auto-generated method stub
+			// 
 			/**
-			 * ÕâÀïisLastChildÄ¿Ç°Ã»ÓÃµ½£¬Èç¹û³öÏÖÒì³£ÔÙËµ
+			 * è¿™é‡ŒisLastChildç›®å‰æ²¡ç”¨åˆ°ï¼Œå¦‚æœå‡ºç°å¼‚å¸¸å†è¯´
 			 */
 			ChildViewTask task=null;
 			if(convertView==null){
 				convertView= LayoutInflater.from(context).inflate(childLayout,null);
-				                             //¸Ğ¾õÕâÀïĞèÒª°ÑrootÉèÖÃ³ÉViewGroup ¶ÔÏó
+				                             //æ„Ÿè§‰è¿™é‡Œéœ€è¦æŠŠrootè®¾ç½®æˆViewGroup å¯¹è±¡
 				/**
-				 * ERROR!!ÕâÀï²»ÄÜ°Ñnull»»³Éparent£¬·ñÔò»á³öÏÖÒì³£ÍË³ö£¬Ô­Òò²»Ì«È·¶¨£¬¿ÉÄÜÊÇinflate·½·¨»ñµÃµÄÕâ¸öitemµÄView
-				 * ²¢²»ÊôÓÚÄ³¸ö¿Ø¼ş×é£¬ËùÒÔÊ¹ÓÃÄ¬ÈÏÖµnull¼´¿É
+				 * ERROR!!è¿™é‡Œä¸èƒ½æŠŠnullæ¢æˆparentï¼Œå¦åˆ™ä¼šå‡ºç°å¼‚å¸¸é€€å‡ºï¼ŒåŸå› ä¸å¤ªç¡®å®šï¼Œå¯èƒ½æ˜¯inflateæ–¹æ³•è·å¾—çš„è¿™ä¸ªitemçš„View
+				 * å¹¶ä¸å±äºæŸä¸ªæ§ä»¶ç»„ï¼Œæ‰€ä»¥ä½¿ç”¨é»˜è®¤å€¼nullå³å¯
 				 */
 				task=new ChildViewTask();
 				task.taskImage=(ImageButton)convertView.findViewById(R.id.taskImage);
@@ -327,25 +326,25 @@ public class FolderFragment extends Fragment{
 		
 		@Override
 		public int getChildrenCount(int groupPosition) {
-			// TODO Auto-generated method stub
+			// 
 			return childData.get(groupPosition).size();
 		}
 
 		@Override
 		public Object getGroup(int groupPosition) {
-			// TODO Auto-generated method stub
+			// 
 			return null;
 		}
 
 		@Override
 		public int getGroupCount() {
-			// TODO Auto-generated method stub
+			// 
 			return groupData.size();
 		}
 
 		@Override
 		public long getGroupId(int groupPosition) {
-			// TODO Auto-generated method stub
+			// 
 			return groupPosition;
 		}
 
@@ -359,7 +358,7 @@ public class FolderFragment extends Fragment{
 		@Override
 		public View getGroupView(int groupPosition, boolean isExpanded,
 				View convertView, ViewGroup parent) {
-			// TODO Auto-generated method stub
+			// 
 			GroupViewFolder folder=null;
 			if(convertView==null){
 				convertView=LayoutInflater.from(context).inflate(groupLayout, null);
@@ -377,40 +376,40 @@ public class FolderFragment extends Fragment{
 			folder.tasksCount.setText(groupData.get(groupPosition).get("tasksCount").toString());
 			
 						
-			//elseµÄÇé¿öÒ²Òª¿¼ÂÇ£¬·ñÔòÔÚ»æÖÆÊ±³öÏÖ´íÎ»ÏÖÏó
+			//elseçš„æƒ…å†µä¹Ÿè¦è€ƒè™‘ï¼Œå¦åˆ™åœ¨ç»˜åˆ¶æ—¶å‡ºç°é”™ä½ç°è±¡
 			
 			/**
-			 * ½«¸Õ¸Õ´´½¨µÄgroupItemµÄÏà¶Ô×ø±ê¼ÆËã³öÀ´·ÅÔÚgroupLocationÖĞ£¬Õâ¸öÊÇ³õÊ¼Ïà¶Ô×ø±ê
-			 * µ±µã»÷´ò¿ªÒ»¼¶²Ëµ¥ºÍ¹Ø±ÕÒ»¼¶²Ëµ¥Ê±ÖØĞÂ¸üĞÂÃ¿Ò»¸ögroupµÄÏà¶Ô×ø±ê
+			 * å°†åˆšåˆšåˆ›å»ºçš„groupItemçš„ç›¸å¯¹åæ ‡è®¡ç®—å‡ºæ¥æ”¾åœ¨groupLocationä¸­ï¼Œè¿™ä¸ªæ˜¯åˆå§‹ç›¸å¯¹åæ ‡
+			 * å½“ç‚¹å‡»æ‰“å¼€ä¸€çº§èœå•å’Œå…³é—­ä¸€çº§èœå•æ—¶é‡æ–°æ›´æ–°æ¯ä¸€ä¸ªgroupçš„ç›¸å¯¹åæ ‡
 			 */
 			
 			return convertView;
 			/**
-			 * ²»ÒªÔÚÊÊÅäÆ÷ÖĞµ÷ÓÃÊÊÅäÆ÷µÄÄÚ²¿·½·¨£¬²»È»»á³öÏÖÆæ¹ÖµÄÒì³£
+			 * ä¸è¦åœ¨é€‚é…å™¨ä¸­è°ƒç”¨é€‚é…å™¨çš„å†…éƒ¨æ–¹æ³•ï¼Œä¸ç„¶ä¼šå‡ºç°å¥‡æ€ªçš„å¼‚å¸¸
 			 * 
 			 */
 		}
 
 		@Override
 		public boolean hasStableIds() {
-			// TODO Auto-generated method stub
+			// 
 			return false;
 		}
 
 		@Override
 		public boolean isChildSelectable(int groupPosition, int childPosition) {
-			// TODO Auto-generated method stub
+			// 
 			return true;
 		}
 
 		/**
-		 * ÔÚÉèÖÃExpandableListViewµÄ¿í¶ÈµÄÊ±ºò£¬Òª×¢ÒâÃ¿´Îµã»÷Õ¹¿ª»òÕß¹Ø±ÕÊ±£¬¸÷¸öGroupºÍËùÒªÏÔÊ¾µÄItem¶¼»áÖØ»æ
-		 * Òò´ËÔÚÃ¿´Î»æÖÆÍê±ÏÖ®ºó¶¼ĞèÒª¶Ôheight½øĞĞ¸üĞÂ
+		 * åœ¨è®¾ç½®ExpandableListViewçš„å®½åº¦çš„æ—¶å€™ï¼Œè¦æ³¨æ„æ¯æ¬¡ç‚¹å‡»å±•å¼€æˆ–è€…å…³é—­æ—¶ï¼Œå„ä¸ªGroupå’Œæ‰€è¦æ˜¾ç¤ºçš„Iteméƒ½ä¼šé‡ç»˜
+		 * å› æ­¤åœ¨æ¯æ¬¡ç»˜åˆ¶å®Œæ¯•ä¹‹åéƒ½éœ€è¦å¯¹heightè¿›è¡Œæ›´æ–°
 		 */
 		
 		@Override
 		public void onGroupExpanded(int groupPosition) {
-			// TODO Auto-generated method stub
+			//
 			super.onGroupExpanded(groupPosition);					
 			groupData.get(groupPosition).put("expanded", true);					
 			height+=childData.get(groupPosition).size()*CHILD_HEIGHT;
@@ -424,14 +423,14 @@ public class FolderFragment extends Fragment{
 
 		@Override
 		public void onGroupCollapsed(int groupPosition) {
-			// TODO Auto-generated method stub
+			// 
 			super.onGroupCollapsed(groupPosition);
 			groupData.get(groupPosition).put("expanded", false);
 			height=height-childData.get(groupPosition).size()*CHILD_HEIGHT;
 			ViewGroup.LayoutParams  params= exListView.getLayoutParams();
 			params.height=height;
 			exListView.setLayoutParams(params);
-			//»ñµÃgroupitemµÄposition
+			//è·å¾—groupitemçš„position
 			for(int i=groupPosition+1; i<groupData.size(); i++){
 			    groupData.get(i).put("location",(Integer)groupData.get(i).get("location")-childData.get(groupPosition).size());
 			}

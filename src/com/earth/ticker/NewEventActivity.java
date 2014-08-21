@@ -59,10 +59,10 @@ public class NewEventActivity extends ActionBarActivity {
 	
 	/**
 	 *
-	 * @return true 通过�?��
+	 * @return true 通过检查
 	 */
 	private boolean eventCreateCheck(){
-		//TODO �?��是否�?��填写的项目都已经填写
+		//TODO 检查是否必须填写的项目都已经填写
 
 		return true;
 	}
