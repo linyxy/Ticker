@@ -57,17 +57,10 @@ public class SQLOperate {
 	public static Cursor basicQuery(Context ctx,String sql,String[] selectionArgs) {
 		DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
 		SQLiteDatabase db = databaseHelper.getReadableDatabase();
-		Cursor cur = null;
-		db.beginTransaction();// 开始事务
-		try {
-			
-			cur = db.rawQuery(sql, selectionArgs);
-			db.setTransactionSuccessful();// 调用此方法会在执行到endTransaction()
-											// 时提交当前事务，如果不调用此方法会回滚事务
-			Log.d(DBtag, "success operation");
-		} finally {
-			db.endTransaction();// 由事务的标志决定是提交事务，还是回滚事务
-		}
+		Cursor cur = null;	
+		cur = db.rawQuery(sql, selectionArgs);
+		Log.d(DBtag,"getCount of Cursor->"+String.valueOf(cur.getCount()));
+		Log.d(DBtag, "success operation in Query");
 		db.close();
 		return cur;
 	}
@@ -82,14 +75,18 @@ public class SQLOperate {
 		ArrayList<String> folders = new ArrayList<String>();
 		String sql = "select * from  event_folder_related";
 		Cursor result= basicQuery(ctx,sql,null);
+		Log.d(DBtag,"getCount of Cursor->"+String.valueOf(result.getCount()));
 		while(result.moveToNext())
 		{
-			String folder = result.getString(result.getColumnIndex("name"));
+			int column = result.getColumnIndex("name");
+			Log.d(DBtag,"name is at column->"+ String.valueOf(column));
+			String folder = result.getString(column);
 			if(!folders.contains(folder))
 			{
 				folders.add(folder);
 			}
 		}
+		
 		
 		return folders;
 		
@@ -251,35 +248,6 @@ public class SQLOperate {
 	}
 
 	/**
-	 * method to add event into folder
-	 * 
-	 * @param ctx
-	 * @param event_id
-	 * @param name
-	 * @return
-	 */
-	public static boolean relateEFolder(Context ctx, long event_id, String name) {
-		DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
-		SQLiteDatabase db = databaseHelper.getWritableDatabase();
-		boolean ifSuccessful = false;
-		ContentValues cv = new ContentValues();
-		cv.put("event_id", String.valueOf(event_id));
-		cv.put("name", name);
-		db.beginTransaction();// 开始事务
-		try {
-			Log.d(DBtag, cv.toString());
-			db.insert("event_contact_work_related", null, cv);
-			db.setTransactionSuccessful();
-			ifSuccessful = true;
-			Log.d(DBtag, "success operation");
-		} finally {
-			db.endTransaction();// 由事务的标志决定是提交事务，还是回滚事务
-		}
-		db.close();
-		return ifSuccessful;
-	}
-
-	/**
 	 * method to add a new contact into an event
 	 * 
 	 * @param ctx
@@ -299,6 +267,63 @@ public class SQLOperate {
 		cv.put("name", name);
 		cv.put("contact", contact);
 		cv.put("work", work);
+		db.beginTransaction();// 开始事务
+		try {
+			Log.d(DBtag, cv.toString());
+			db.insert("event_contact_work_related", null, cv);
+			db.setTransactionSuccessful();
+			ifSuccessful = true;
+			Log.d(DBtag, "success operation");
+		} finally {
+			db.endTransaction();// 由事务的标志决定是提交事务，还是回滚事务
+		}
+		db.close();
+		return ifSuccessful;
+	}
+	
+	/**
+	 * 增加一个文件夹
+	 * method to add one folder
+	 * @param ctx
+	 * @param name
+	 * @return
+	 */
+	public static boolean addFolder(Context ctx,String name)
+	{
+		DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
+		SQLiteDatabase db = databaseHelper.getWritableDatabase();
+		boolean ifSuccessful = false;
+		ContentValues cv = new ContentValues();
+		cv.put("name", String.valueOf(name));
+		db.beginTransaction();// 开始事务
+		try {
+			Log.d(DBtag, cv.toString());
+			db.insert("event_folder_related", null, cv);
+			db.setTransactionSuccessful();
+			ifSuccessful = true;
+			Log.d(DBtag, "success operation");
+		} finally {
+			db.endTransaction();// 由事务的标志决定是提交事务，还是回滚事务
+		}
+		db.close();
+		return ifSuccessful;
+	}
+
+	/**
+	 * method to add event into folder
+	 * 
+	 * @param ctx
+	 * @param event_id
+	 * @param name
+	 * @return
+	 */
+	public static boolean relateEFolder(Context ctx, long event_id, String name) {
+		DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
+		SQLiteDatabase db = databaseHelper.getWritableDatabase();
+		boolean ifSuccessful = false;
+		ContentValues cv = new ContentValues();
+		cv.put("event_id", String.valueOf(event_id));
+		cv.put("name", name);
 		db.beginTransaction();// 开始事务
 		try {
 			Log.d(DBtag, cv.toString());
@@ -335,7 +360,7 @@ public class SQLOperate {
 			db.setTransactionSuccessful();
 			ifSuccessful = true;
 			Log.d(DBtag, "success operation");
-
+	
 		} finally {
 			db.endTransaction();// 由事务的标志决定是提交事务，还是回滚事务
 		}

@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,6 +21,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.earth.ticker.assist.AlertDialog;
+import com.earth.ticker.util.SQLOperate;
 
 public class AddDeleteFolderActivity extends Activity{
 	
@@ -39,9 +41,17 @@ public class AddDeleteFolderActivity extends Activity{
 		add_Button=(ImageButton)findViewById(R.id.addfolder_button);
 		mlistView=(ListView)findViewById(R.id.deletefolder_list);
 		
-		folder_list.add("二次元");
-		folder_list.add("模板TODO");
-		folder_list.add("三次元");
+		/*
+		 * used here to store one line into database
+		 */
+		Log.d(SQLOperate.DBtag, "create a sample folder");
+		boolean isFolderCeated;
+		isFolderCeated = SQLOperate.addFolder(this,(String)this.getResources().getText(R.string.sampleFolder));
+		Log.d(SQLOperate.DBtag, "the table is created? "+String.valueOf(isFolderCeated));
+		
+		//folder_list.add("二次元");
+		//folder_list.add("模板TODO");
+		//folder_list.add("三次元");
 		FolderListAdapter adapter=new FolderListAdapter();
 		//文件夹列表的监听，弹出自定义alertdialog
 		mlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -121,7 +131,18 @@ public class AddDeleteFolderActivity extends Activity{
 		
 	}
 	
-	  //文件夹列表显示适配器
+	/*
+	 * read the lines from database into folder_list
+	 * 
+	 */
+	  @Override
+	protected void onStart() {
+		  folder_list = SQLOperate.getAllFolders(this);
+		  Log.d(SQLOperate.DBtag, folder_list.toString());
+		super.onStart();
+	}
+
+	//文件夹列表显示适配器
 	  class FolderListAdapter extends BaseAdapter{  
 		  
 	        @Override  

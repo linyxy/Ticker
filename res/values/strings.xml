@@ -54,5 +54,6 @@
     <string name="tpye_in_folder_name">请输入文件夹名</string>
 
     <!--  -->
+    <string name="sampleFolder">待办事项</string>
 
 </resources>

@@ -6,16 +6,19 @@ import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.earth.ticker.R;
+
 public class DatabaseHelper extends SQLiteOpenHelper {
 
 	public static String dataBase = "TickerBase";
 	public static String DBtag = "database";
-
+	Context ctx;
 	private static final int VERSION = 1;
 
 	public DatabaseHelper(Context context, String name, CursorFactory factory,
 			int version) {
 		super(context, name, factory, version);
+		ctx = context;
 	}
 
 	public DatabaseHelper(Context context, String name) {
@@ -38,7 +41,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 				+ "name TEXT NOT NULL,time_start INTEGER,duration INTEGER,repeat TEXT,alarm INTEGER, alarm_name TEXT" +
 				"alarm_address TEXT, extra TEXT, event_state INTEGER)");
 		// create table event_folder_related
-		db.execSQL("CREATE TABLE IF NOT EXISTS event_folder_related(name TEXT,event_id INTEGER");
+		db.execSQL("CREATE TABLE IF NOT EXISTS event_folder_related(name TEXT,event_id INTEGER)");
 		// create table notes
 		db.execSQL("CREATE TABLE IF NOT EXISTS notes (id INTEGER PRIMARY KEY AUTOINCREMENT ,time_stamp INTEGER,"
 				+ "content TEXT,last_change_date INTEGER)");
@@ -53,6 +56,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		// create table event_sub_event_related
 		db.execSQL("CREATE TABLE IF NOT EXISTS event_sub_event_related (event_id INTEGER,sub_event_id INTEGER)");
 		Log.d(DBtag, "tables created");
+		
+
+		
 	}
 
 	@Override
