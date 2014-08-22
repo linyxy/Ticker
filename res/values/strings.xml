@@ -30,7 +30,7 @@
     <!-- submast content page -->
     <string name="task_name">重构博客模板</string>
     <string name="folder_name">二次元</string>
-    <string name="task_time">12:30-15:00</string>
+    <string name="task_time">12:30－15:00</string>
     <string name="remind">提前10分钟提醒</string>
     <string name="members">EVA参与</string>
     <string name="attention">本次模板的注意事项 ></string>
@@ -55,5 +55,7 @@
 
     <!--  -->
     <string name="sampleFolder">待办事项</string>
+    <string name="sampleFolder2">二次元</string>
+    <string name="sampleFolder3">如果这个文件夹名字非常长会怎么样呢</string>
 
 </resources>

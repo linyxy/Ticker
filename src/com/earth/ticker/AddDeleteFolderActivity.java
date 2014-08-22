@@ -21,6 +21,7 @@ import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.earth.ticker.assist.AlertDialog;
+import com.earth.ticker.assist.FirstOpenSample;
 import com.earth.ticker.util.SQLOperate;
 
 public class AddDeleteFolderActivity extends Activity{
@@ -44,14 +45,9 @@ public class AddDeleteFolderActivity extends Activity{
 		/*
 		 * used here to store one line into database
 		 */
-		Log.d(SQLOperate.DBtag, "create a sample folder");
-		boolean isFolderCeated;
-		isFolderCeated = SQLOperate.addFolder(this,(String)this.getResources().getText(R.string.sampleFolder));
-		Log.d(SQLOperate.DBtag, "the table is created? "+String.valueOf(isFolderCeated));
+		FirstOpenSample.addSomeFolders(this);
 		
-		//folder_list.add("二次元");
-		//folder_list.add("模板TODO");
-		//folder_list.add("三次元");
+
 		FolderListAdapter adapter=new FolderListAdapter();
 		//文件夹列表的监听，弹出自定义alertdialog
 		mlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

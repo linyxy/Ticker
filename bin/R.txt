@@ -558,6 +558,8 @@ int string now_next_task_name_defualt 0x7f0a0024
 int string now_task_name_defualt 0x7f0a0023
 int string remind 0x7f0a0028
 int string sampleFolder 0x7f0a0039
+int string sampleFolder2 0x7f0a003a
+int string sampleFolder3 0x7f0a003b
 int string tab_add 0x7f0a0033
 int string tab_file 0x7f0a0032
 int string tab_time 0x7f0a0031
