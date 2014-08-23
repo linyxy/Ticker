@@ -57,5 +57,7 @@
     <string name="sampleFolder">待办事项</string>
     <string name="sampleFolder2">二次元</string>
     <string name="sampleFolder3">如果这个文件夹名字非常长会怎么样呢</string>
+    <string name="note_list_sample_date">2014-8-23</string>
+    <string name="note_sample">我就是想随便打一点东西进来看看这个东西现在的效果而已，其实我也不知道应该打什么进来</string>
 
 </resources>

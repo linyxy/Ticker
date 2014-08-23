@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/note_normal_line"
+    style="@style/normal_line"
+    android:orientation="horizontal" >
+
+    <TextView
+        style="@style/padding_weiget"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical" />
+
+    <TextView
+        style="@style/padding_weiget"
+        android:layout_width="wrap_content"
+        android:gravity="center_vertical"
+        android:text="@string/note_list_sample_date" />
+
+</LinearLayout>
