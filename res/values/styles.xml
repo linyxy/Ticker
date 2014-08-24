@@ -70,7 +70,13 @@
 		<item name="android:enabled">@bool/enable_false</item>
 	</style>
 
-
+    <!-- popwidnow 显示消失动画 -->
+    <style name="popwindow_delete_btn_anim_style">
+        <!-- 指定显示的动画xml -->
+        <item name="android:windowEnterAnimation">@anim/push_right_in</item> 
+        <!-- 指定消失的动画xml -->      
+        <item name="android:windowExitAnimation">@anim/push_right_out</item>      
+    </style>
 
 
 </resources>

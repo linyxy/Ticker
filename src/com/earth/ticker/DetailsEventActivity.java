@@ -44,9 +44,9 @@ public class DetailsEventActivity extends Activity{
 	public void initData()
 	{
 		list=new ArrayList<String>();		
-		unfinished_subList.add("é‡å†™æ‰“å°æ ·å¼è¡¨");		
+		unfinished_subList.add("ÖØĞ´´òÓ¡ÑùÊ½±í");		
 		list.addAll(unfinished_subList);
-		finished_subList.add("ä¿®å¤æ‰‹æœºç‰ˆè¾¹æ¡†");
+		finished_subList.add("ĞŞ¸´ÊÖ»ú°æ±ß¿ò");
 		list.addAll(finished_subList);
 	}			
 
