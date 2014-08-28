@@ -1,13 +1,18 @@
 package com.earth.ticker;
 
 import java.util.ArrayList;
+
 import java.util.List;
 
 import android.app.Activity;
+import android.app.ActionBar.LayoutParams;
+import android.content.Context;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -16,22 +21,26 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-
 import com.earth.ticker.assist.AlertDialog;
 import com.earth.ticker.assist.FirstOpenSample;
 import com.earth.ticker.util.SQLOperate;
 
+
 public class AddDeleteFolderActivity extends Activity{
 	
 	private ImageButton add_Button;
+	
 	private ListView mlistView;
 	private List<String> folder_list=new ArrayList<String>();
-	private String str;//è·å¾—çš„EditTextå†…å®¹
+	private String str;//»ñµÃµÄEditTextÄÚÈİ
 	protected Activity context;
 	private  PopupWindow pop;
+	private int popHeight=0;
+	private int popWidth=0;
 	private int pos=0;
 	@Override
 	public void onCreate(Bundle saveInstanceState)
@@ -46,31 +55,29 @@ public class AddDeleteFolderActivity extends Activity{
 		 * used here to store one line into database
 		 */
 		FirstOpenSample.addSomeFolders(this);
-		
-
 		FolderListAdapter adapter=new FolderListAdapter();
-		//æ–‡ä»¶å¤¹åˆ—è¡¨çš„ç›‘å¬ï¼Œå¼¹å‡ºè‡ªå®šä¹‰alertdialog
+		//ÎÄ¼ş¼ĞÁĞ±íµÄ¼àÌı£¬µ¯³ö×Ô¶¨Òåalertdialog
 		mlistView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
 			int position, long id) {
-			// 
+			// TODO Auto-generated method stub
 			final AlertDialog ad=new AlertDialog(AddDeleteFolderActivity.this);
-			ad.setTitle("ç¼–è¾‘ä»»åŠ¡");
-			ad.setMessage("è¯·è¾“å…¥æ–°çš„ä»»åŠ¡åç§°");
-			ad.setNegativeButton("å–æ¶ˆ", new OnClickListener() {
+			ad.setTitle("±à¼­ÈÎÎñ");
+			ad.setMessage("ÇëÊäÈëĞÂµÄÈÎÎñÃû³Æ");
+			ad.setNegativeButton("È¡Ïû", new OnClickListener() {
  
 					@Override
 					public void onClick(View v) {
-						// 
+						// TODO Auto-generated method stub
 						ad.dismiss();					
 					}
 				});
 			
-			ad.setPositiveButton("ç¡®å®š", new OnClickListener() { 
+			ad.setPositiveButton("È·¶¨", new OnClickListener() { 
 				@Override
 				public void onClick(View v) {
-					// 
+					// TODO Auto-generated method stub
 					
 					/*if(ad.getEditText()!="")
 					{
@@ -89,28 +96,28 @@ public class AddDeleteFolderActivity extends Activity{
 		
 		mlistView.setAdapter(adapter);
 		
-		//æ·»åŠ æ–‡ä»¶å¤¹æŒ‰é’®ç›‘å¬ï¼Œå¼¹å‡ºå¯¹è¯æ¡†
+		//Ìí¼ÓÎÄ¼ş¼Ğ°´Å¥¼àÌı£¬µ¯³ö¶Ô»°¿ò
 		add_Button.setOnClickListener(new View.OnClickListener() {			
 			@Override
 			public void onClick(View arg0) {
-				
+				// TODO Auto-generated method stub
 				final AlertDialog ad=new AlertDialog(AddDeleteFolderActivity.this);						
 				
-				ad.setTitle("æ·»åŠ æ–‡ä»¶å¤¹");
-				ad.setMessage("è¯·è¾“å…¥æ–°çš„æ–‡ä»¶å¤¹åç§°");				               
-				ad.setNegativeButton("å–æ¶ˆ", new OnClickListener() {
+				ad.setTitle("Ìí¼ÓÎÄ¼ş¼Ğ");
+				ad.setMessage("ÇëÊäÈëĞÂµÄÎÄ¼ş¼ĞÃû³Æ");				               
+				ad.setNegativeButton("È¡Ïû", new OnClickListener() {
  
 					@Override
 					public void onClick(View v) {
-						// 
+						// TODO Auto-generated method stub
 						ad.dismiss();					
 					}
 				});
 
-				ad.setPositiveButton("ç¡®å®š", new OnClickListener() { 
+				ad.setPositiveButton("È·¶¨", new OnClickListener() { 
 					@Override
 					public void onClick(View v) {
-						// 
+						// TODO Auto-generated method stub
 						
 						/*if(ad.getEditText()!="")
 						{
@@ -127,35 +134,24 @@ public class AddDeleteFolderActivity extends Activity{
 		
 	}
 	
-	/*
-	 * read the lines from database into folder_list
-	 * 
-	 */
-	  @Override
-	protected void onStart() {
-		  folder_list = SQLOperate.getAllFolders(this);
-		  Log.d(SQLOperate.DBtag, folder_list.toString());
-		super.onStart();
-	}
-
-	//æ–‡ä»¶å¤¹åˆ—è¡¨æ˜¾ç¤ºé€‚é…å™¨
+	  //ÎÄ¼ş¼ĞÁĞ±íÏÔÊ¾ÊÊÅäÆ÷
 	  class FolderListAdapter extends BaseAdapter{  
 		  
 	        @Override  
 	        public int getCount() {  
-	            //   
+	            // TODO Auto-generated method stub  
 	            return folder_list.size();  
 	        }  
 	  
 	        @Override  
 	        public Object getItem(int position) {  
-	            //   
+	            // TODO Auto-generated method stub  
 	            return folder_list.get(position);  
 	        }  
 	  
 	        @Override  
 	        public long getItemId(int position) {  
-	            //   
+	            // TODO Auto-generated method stub  
 	            return position;  
 	        }  
 	        
@@ -175,73 +171,79 @@ public class AddDeleteFolderActivity extends Activity{
 	        
 	        @Override  
 	        public View getView(final int position, View convertView, ViewGroup parent) {  
-	          
+	            // TODO Auto-generated method stub \
 	        	
 	            View view=convertView;  
 	            view=LayoutInflater.from(getApplicationContext()).inflate(R.layout.delete_folder_item, null);                          	            
 	            TextView text=(TextView)view.findViewById(R.id.delete_folder);
 	            text.setText((String)folder_list.get(position));
 	            ImageButton button=(ImageButton)view.findViewById(R.id.deletefolder_button);
-	            final Button deleteButton=(Button)view.findViewById(R.id.delete_button);
-	            //åˆ é™¤æ–‡ä»¶å¤¹æŒ‰é’®ç›‘å¬ï¼Œå¼¹å‡ºåˆ é™¤æŒ‰é’®
-	            button.setOnClickListener(new View.OnClickListener() {	            	
+	            final LayoutInflater mInflater = LayoutInflater.from(view.getContext()); 
+	            //item¿Ø¼ş
+	            final View currentview=view;
+	            
+	            //É¾³ıÎÄ¼ş¼Ğ°´Å¥¼àÌı£¬µ¯³öÉ¾³ı°´Å¥
+	            button.setOnClickListener(new OnClickListener() {	            	
+					
 					@Override
 					public void onClick(View arg0) {
-						// 
+						// TODO Auto-generated method stub																											   
 						
-						if(deleteButton!=null)
-						{
+						View viewpop=mInflater.inflate(R.layout.delete_btn, null);
+						pop = new PopupWindow(currentview, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, false);
+						pop.setContentView(viewpop);
+						Button delete_btn = (Button)viewpop.findViewById(R.id.delete_button);				
+						// ĞèÒªÉèÖÃÒ»ÏÂ´Ë²ÎÊı£¬µã»÷Íâ±ß¿ÉÏûÊ§ 		
+						pop.setBackgroundDrawable(new BitmapDrawable()); 		
+						//ÉèÖÃµã»÷´°¿ÚÍâ±ß´°¿ÚÏûÊ§ 		 
+						pop.setOutsideTouchable(true); 		
+						// ÉèÖÃ´Ë²ÎÊı»ñµÃ½¹µã£¬·ñÔòÎŞ·¨µã»÷ 		
+						pop.setFocusable(true);	
 						
-							if(deleteButton.getVisibility()==View.VISIBLE)
-							{
-								deleteButton.setVisibility(View.GONE);								
-								Animation animation = AnimationUtils.loadAnimation(
-										AddDeleteFolderActivity.this, R.anim.push_right_out);  			              
-								deleteButton.startAnimation(animation);																
-							}else
-							{
-								deleteButton.setVisibility(View.VISIBLE);					
-								Animation animation = AnimationUtils.loadAnimation(
-										AddDeleteFolderActivity.this, R.anim.push_right_in);  			              
-								deleteButton.startAnimation(animation); 								
-							}
+						pop.getContentView().measure(0, 0);						    
+					    popHeight = pop.getContentView().getMeasuredHeight();
+						popWidth = pop.getContentView().getMeasuredWidth();
+					    pop.setBackgroundDrawable(new BitmapDrawable()); 
+						
+			            //»ñµÃ¿Ø¼şµÄÎ»ÖÃ
+					    int[] location=new int[2];
+			            currentview.getLocationInWindow(location);
+			            
+			            pop.setAnimationStyle(R.style.popwindow_delete_btn_anim_style);
+						pop.update();
+						pop.showAtLocation(currentview, Gravity.LEFT| Gravity.TOP,
+								location[0] + currentview.getWidth(), location[1] + currentview.getHeight() / 2
+								- popHeight/2);	
+						
+						delete_btn.setOnClickListener(new View.OnClickListener() {
 							
-							//åˆ é™¤æŒ‰é’®ç›‘å¬ï¼Œå¼¹å‡ºåˆ é™¤ç¡®è®¤å¯¹è¯æ¡†
-							deleteButton.setOnClickListener(new View.OnClickListener() {
+							@Override
+							public void onClick(View arg0) {
+								final AlertDialog ad=new AlertDialog(AddDeleteFolderActivity.this);						
 								
-								@Override
-								public void onClick(View arg0) {
-									final AlertDialog ad=new AlertDialog(AddDeleteFolderActivity.this);						
-									
-									ad.setTitle("æç¤º");
-									ad.setMessage("ç¡®å®šåˆ é™¤è¯¥æ–‡ä»¶å¤¹å—");	
-									ad.setEdit(false);
-									ad.setNegativeButton("å–æ¶ˆ", new OnClickListener() {
-					                
-										@Override
-										public void onClick(View v) {
-											// 
-											ad.dismiss();					
-										}
-									});
+								ad.setTitle("ÌáÊ¾");
+								ad.setMessage("È·¶¨É¾³ı¸ÃÎÄ¼ş¼ĞÂğ");	
+								ad.setEdit(false);
+								ad.setNegativeButton("È¡Ïû", new OnClickListener() {
+				                
+									@Override
+									public void onClick(View v) {
+										// TODO Auto-generated method stub
+										ad.dismiss();
+										pop.dismiss();
+									}
+								});
 
-									ad.setPositiveButton("ç¡®å®š", new OnClickListener() { 
-										@Override
-										public void onClick(View v) {
-											// 
-											
-											deleteButton.setVisibility(View.GONE);																				
-											Animation animation = AnimationUtils.loadAnimation(
-													AddDeleteFolderActivity.this, R.anim.push_right_out);  			              
-											deleteButton.startAnimation(animation);		
-											ad.dismiss();
-											
-										}
-									});
-								}
-							});
-						}						
-							
+								ad.setPositiveButton("È·¶¨", new OnClickListener() { 
+									@Override
+									public void onClick(View v) {
+										// TODO Auto-generated method stub																																															
+										ad.dismiss();
+										pop.dismiss();
+									}
+								});
+							}
+						});
 					}
 				});
 	            
