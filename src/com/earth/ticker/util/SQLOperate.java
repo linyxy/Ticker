@@ -2,6 +2,8 @@ package com.earth.ticker.util;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -92,18 +94,20 @@ public class SQLOperate {
 		
 	}
 	
+	
+	
 	/**
 	 * method to get all eventIdBy the name of folder
 	 * @param ctx
 	 * @param folderName
 	 * @return
 	 */
-	public static ArrayList<Long> getAllEventIdbyFolder(Context ctx,String folderName)
+	public static ArrayList<Long> getAllEventIdByFolder(Context ctx,String folderName)
 	{
 		
 		ArrayList<Long> eventIds = new ArrayList<Long>();
 		String sql = "select * from  event_folder_related WHERE event_id=?";
-		String[] folder= new String[]{"folderName"};
+		String[] folder= new String[]{folderName};
 		Cursor result= basicQuery(ctx,sql,folder);
 		while(result.moveToNext())
 		{
@@ -115,6 +119,33 @@ public class SQLOperate {
 		}
 		
 		return eventIds;
+	}
+	
+	/**
+	 * method to get note from db
+	 * @param ctx
+	 * @param noteId
+	 * @return map
+	 * 		content
+	 * 		last_change_time
+	 */
+	public static Map<String,String> getNoteById(Context ctx,String noteId)
+	{
+		
+		
+		String sql = "select * from  notes WHERE id=?";
+		String[] id= new String[]{noteId};
+		Cursor result= basicQuery(ctx,sql,id);
+		HashMap<String, String> note = new HashMap<String,String>();
+		while(result.moveToNext())
+		{
+			String content = result.getString(result.getColumnIndex("content"));
+			String time = result.getString(result.getColumnIndex("last_change_date"));
+			note.put("content", content);
+			note.put("time", time);
+		}
+		
+		return note;
 	}
 
 	/**
@@ -661,8 +692,8 @@ public class SQLOperate {
 	 * @param content
 	 * @return
 	 */
-	public static boolean updateNote(Context ctx, long note_id, String content) {
-		String id = String.valueOf(note_id);
+	public static boolean updateNote(Context ctx, String note_id, String content) {
+		String id = note_id;
 		boolean upContent = false;
 		boolean upTimeStamp = false;
 		upContent = sampleUpdate(ctx, "notes", "id", id, "content", content);

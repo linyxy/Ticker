@@ -4,6 +4,12 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <TextView
+        android:id="@+id/note_time"
+        style="@style/note_time"
+        android:text="@string/note_sample_time"
+        android:textColor="@color/dark_grey" />
+
     <EditText
         android:id="@+id/note_edit"
         style="@style/note_edit"

@@ -214,7 +214,7 @@ public class FolderFragment extends Fragment {
 		for (String folder : folders) {
 			// 通过folder名字获取相应的事件ID列表
 			// fill in the groupData
-			ArrayList<Long> eventIds = SQLOperate.getAllEventIdbyFolder(
+			ArrayList<Long> eventIds = SQLOperate.getAllEventIdByFolder(
 					getActivity(), folder);
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("folderName", folder);
