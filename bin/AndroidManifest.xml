@@ -22,18 +22,18 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".DetailsEventActivity">           
+        <activity android:name=".DetailsEventActivity" >
         </activity>
-        <activity
-            android:name=".NewEventActivity">          
+        <activity android:name=".NewEventActivity" >
         </activity>
-        <activity
-            android:name=".NowActivity">          
+        <activity android:name=".NowActivity" >
         </activity>
-        <activity
-            android:name=".AddDeleteFolderActivity">          
+        <activity android:name=".AddDeleteFolderActivity" >
+        </activity>
+        <activity android:name=".NoteActivity" >
         </activity>
     </application>
- <uses-permission android:name="android.permission.VIBRATE"/> 
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+
 </manifest>

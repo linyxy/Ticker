@@ -2,7 +2,9 @@ package com.earth.ticker.util;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import android.content.ContentValues;
@@ -94,6 +96,15 @@ public class SQLOperate {
 		
 	}
 	
+	public static Cursor getAllNotes(Context ctx)
+	{
+		String sql = "select * from  notes";
+		Cursor result= basicQuery(ctx,sql,null);
+		Log.d(DBtag,"getCount of Cursor->"+String.valueOf(result.getCount()));		
+		
+		return result;
+		
+	}
 	
 	
 	/**
@@ -165,15 +176,16 @@ public class SQLOperate {
 	 * @param event_status
 	 * @return
 	 */
-	public static boolean addEvent(Context ctx, String name, String folder,
+	public static int addEvent(Context ctx, String name, String folder,
 			String icon, String time_start, String duration, String repeat,
 			String alarm, String alarm_name, String alarm_address,
 			String extra, String event_status) {
 		DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
 		SQLiteDatabase db = databaseHelper.getWritableDatabase();
-		boolean ifSuccessful = false;
+		
 		ContentValues cv = new ContentValues();
 		String id = null;
+		int strid=-1;
 		cv.put("id", id);
 		String time_stamp = String.valueOf(Calendar.getInstance().getTime()
 				.getTime());
@@ -193,14 +205,19 @@ public class SQLOperate {
 		try {
 			Log.d(DBtag, cv.toString());
 			db.insert("events", null, cv);
+			//get last inserted id
+			//获取自增id
+			Cursor cursor = db.rawQuery("select last_insert_rowid() from person",null);                
+			if(cursor.moveToFirst())    
+			   strid = cursor.getInt(0);    
 			db.setTransactionSuccessful();
-			ifSuccessful = true;
+		
 			Log.d(DBtag, "success operation");
 		} finally {
 			db.endTransaction();// 由事务的标志决定是提交事务，还是回滚事务
 		}
 		db.close();
-		return ifSuccessful;
+		return strid;
 	}
 
 	/**
@@ -210,17 +227,19 @@ public class SQLOperate {
 	 * @param content
 	 * @return
 	 */
-	public static boolean addNote(Context ctx, String content) {
+	public static int addNote(Context ctx, String content) {
 		DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
 		SQLiteDatabase db = databaseHelper.getWritableDatabase();
-		boolean ifSuccessful = false;
+
 		ContentValues cv = new ContentValues();
+		int strid=-1; 
 		String id = null;
 		cv.put("id", id);
 		String time_stamp = String.valueOf(Calendar.getInstance().getTime()
 				.getTime());
 		// get a time_stamp
 		cv.put("time_stamp", time_stamp);
+		
 		cv.put("content", content);
 		cv.put("last_change_date", time_stamp);
 		db.beginTransaction();// 开始事务
@@ -228,14 +247,19 @@ public class SQLOperate {
 			Log.d(DBtag, cv.toString());
 			db.insert("notes", null, cv);
 			db.setTransactionSuccessful();
-			ifSuccessful = true;
-			Log.d(DBtag, "success operation");
 
+			Log.d(DBtag, "success operation");
+			//get last inserted id
+			//获取自增id
+			Cursor cursor = db.rawQuery("select last_insert_rowid() from person",null);                
+			if(cursor.moveToFirst())    
+			   strid = cursor.getInt(0);    
 		} finally {
 			db.endTransaction();// 由事务的标志决定是提交事务，还是回滚事务
 		}
 		db.close();
-		return ifSuccessful;
+		
+		return strid;
 	}
 
 	/**
@@ -697,8 +721,8 @@ public class SQLOperate {
 		boolean upContent = false;
 		boolean upTimeStamp = false;
 		upContent = sampleUpdate(ctx, "notes", "id", id, "content", content);
-		String time_stamp = String.valueOf(Calendar.getInstance().getTime()
-				.getTime());
+		Date date = new Date();
+		String time_stamp = String.valueOf(date.getTime());
 		// get a time_stamp
 		upTimeStamp = sampleUpdate(ctx, "notes", "id", id, "last_change_date",
 				time_stamp);
