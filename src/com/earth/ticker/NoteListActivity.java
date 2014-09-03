@@ -2,6 +2,7 @@ package com.earth.ticker;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +12,7 @@ import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -25,24 +27,26 @@ public class NoteListActivity extends ListActivity {
 	String[] con = { "content", "date" };
 	int[] ids = { R.id.note_item_content, R.id.note_item_date };
 	List<Map<String, Object>> listData;
-
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
 
+		
 	}
 
 	@Override
 	protected void onStart() {
 		listData = getData();
+		Log.d("note","data of list->"+ listData.toString());
 		SimpleAdapter adapter = new SimpleAdapter(this, listData,
 				R.layout.activity_notes, con, ids);
-
 		setListAdapter(adapter);
 		super.onStart();
 	}
 
-	private List<Map<String, Object>> getData() {
+	protected List<Map<String, Object>> getData() {
 
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		Cursor result = (Cursor) SQLOperate.getAllNotes(this);
@@ -52,11 +56,21 @@ public class NoteListActivity extends ListActivity {
 
 			note.put("content",
 					result.getString(result.getColumnIndex("content")));
+			Log.d("note",
+					"content of note->"
+							+ result.getString(result.getColumnIndex("content")));
+
 			String time = result.getString(result
 					.getColumnIndex("last_change_date"));
+			Log.d("note",
+					"time of note->"
+							+ result.getString(result
+									.getColumnIndex("last_change_date")));
+			
+			long a = Long.valueOf(time);
 			// convert time
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-			Date date = new Date(time);
+			Date date = new Date(a);
 			String d = df.format(date);
 			note.put("date", d);
 

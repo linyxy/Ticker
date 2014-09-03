@@ -1,23 +1,16 @@
 package com.earth.ticker;
-import com.earth.ticker.fragment.DrawerFragment;
-import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+
+import com.earth.ticker.fragment.DrawerFragment;
 
 
 public class SkeletonActivity extends  FragmentActivity 
@@ -38,7 +31,7 @@ public class SkeletonActivity extends  FragmentActivity
 		mListView=(ListView)findViewById(R.id.left_drawer);
 		
 		mListView.setAdapter(new ArrayAdapter<String>(this,R.layout.draw_list_item,mDrawerTitle));
-		
+		mListView.setOnItemClickListener(new listViewListener());
 		
 		if(findViewById(R.id.main_fragment)!=null)
         {
@@ -51,8 +44,30 @@ public class SkeletonActivity extends  FragmentActivity
         
         getSupportFragmentManager().beginTransaction()
         .add(R.id.main_fragment, drawerFragment).commit();
+        
+        
         }
+		
+
 	 
+	}
+	class listViewListener implements OnItemClickListener
+	{
+
+		@Override
+		public void onItemClick(AdapterView<?> arg0, View arg1, int position,
+				long arg3) {
+			// TODO Auto-generated method stub
+			Log.d("drawer", "the list have been clicked");
+			switch(position)
+			{
+			case 3:
+			Intent intent = new Intent();
+			intent.setClass(getApplicationContext(), NoteListActivity.class);
+			startActivity(intent);
+			}
+		}
+		
 	}
 
 }

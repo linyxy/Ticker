@@ -11,5 +11,10 @@
         android:orderInCategory="1"
         android:showAsAction="always"
         android:title="@string/note_delete"/>
+    <item
+        android:id="@+id/action_finish"
+        android:orderInCategory="3"
+        android:showAsAction="always"
+        android:title="@string/note_finish"/>
 
 </menu>

@@ -62,5 +62,6 @@
     <string name="note_sample">我就是想随便打一点东西进来看看这个东西现在的效果而已，其实我也不知道应该打什么进来</string>
     <string name="note_new">新建</string>
     <string name="note_delete">删除</string>
+    <string name="note_finish">完成</string>
 
 </resources>

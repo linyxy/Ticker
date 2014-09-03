@@ -20,7 +20,6 @@ public class SQLOperate {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		
 
 	}
 
@@ -48,114 +47,105 @@ public class SQLOperate {
 		db.close();
 		return ifSuccessful;
 	}
-	
+
 	/**
-	 * basic query method
-	 * even myself found this method useless
-	 * 我也觉得这个函数没啥用
+	 * basic query method even myself found this method useless 我也觉得这个函数没啥用
+	 * 
 	 * @param ctx
 	 * @param sql
 	 * @param selectionArgs
 	 * @return
 	 */
-	public static Cursor basicQuery(Context ctx,String sql,String[] selectionArgs) {
+	public static Cursor basicQuery(Context ctx, String sql,
+			String[] selectionArgs) {
 		DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
 		SQLiteDatabase db = databaseHelper.getReadableDatabase();
-		Cursor cur = null;	
+		Cursor cur = null;
 		cur = db.rawQuery(sql, selectionArgs);
-		Log.d(DBtag,"getCount of Cursor->"+String.valueOf(cur.getCount()));
+		Log.d(DBtag, "getCount of Cursor->" + String.valueOf(cur.getCount()));
 		Log.d(DBtag, "success operation in Query");
 		db.close();
 		return cur;
 	}
-	
+
 	/**
 	 * Method to get all the folders
+	 * 
 	 * @param ctx
 	 * @return
 	 */
-	public static ArrayList<String> getAllFolders(Context ctx)
-	{
+	public static ArrayList<String> getAllFolders(Context ctx) {
 		ArrayList<String> folders = new ArrayList<String>();
 		String sql = "select * from  event_folder_related";
-		Cursor result= basicQuery(ctx,sql,null);
-		Log.d(DBtag,"getCount of Cursor->"+String.valueOf(result.getCount()));
-		while(result.moveToNext())
-		{
+		Cursor result = basicQuery(ctx, sql, null);
+		Log.d(DBtag, "getCount of Cursor->" + String.valueOf(result.getCount()));
+		while (result.moveToNext()) {
 			int column = result.getColumnIndex("name");
-			Log.d(DBtag,"name is at column->"+ String.valueOf(column));
+			Log.d(DBtag, "name is at column->" + String.valueOf(column));
 			String folder = result.getString(column);
-			if(!folders.contains(folder))
-			{
+			if (!folders.contains(folder)) {
 				folders.add(folder);
 			}
 		}
-		
-		
+
 		return folders;
-		
+
 	}
-	
-	public static Cursor getAllNotes(Context ctx)
-	{
+
+	public static Cursor getAllNotes(Context ctx) {
 		String sql = "select * from  notes";
-		Cursor result= basicQuery(ctx,sql,null);
-		Log.d(DBtag,"getCount of Cursor->"+String.valueOf(result.getCount()));		
-		
+		Cursor result = basicQuery(ctx, sql, null);
+		Log.d(DBtag, "getCount of Cursor->" + String.valueOf(result.getCount()));
+
 		return result;
-		
+
 	}
-	
-	
+
 	/**
 	 * method to get all eventIdBy the name of folder
+	 * 
 	 * @param ctx
 	 * @param folderName
 	 * @return
 	 */
-	public static ArrayList<Long> getAllEventIdByFolder(Context ctx,String folderName)
-	{
-		
+	public static ArrayList<Long> getAllEventIdByFolder(Context ctx,
+			String folderName) {
+
 		ArrayList<Long> eventIds = new ArrayList<Long>();
 		String sql = "select * from  event_folder_related WHERE event_id=?";
-		String[] folder= new String[]{folderName};
-		Cursor result= basicQuery(ctx,sql,folder);
-		while(result.moveToNext())
-		{
+		String[] folder = new String[] { folderName };
+		Cursor result = basicQuery(ctx, sql, folder);
+		while (result.moveToNext()) {
 			long event = result.getLong(result.getColumnIndex("event_id"));
-			if(!eventIds.contains(event))
-			{
+			if (!eventIds.contains(event)) {
 				eventIds.add(event);
 			}
 		}
-		
+
 		return eventIds;
 	}
-	
+
 	/**
 	 * method to get note from db
+	 * 
 	 * @param ctx
 	 * @param noteId
-	 * @return map
-	 * 		content
-	 * 		last_change_time
+	 * @return map content last_change_time
 	 */
-	public static Map<String,String> getNoteById(Context ctx,String noteId)
-	{
-		
-		
+	public static Map<String, String> getNoteById(Context ctx, String noteId) {
+
 		String sql = "select * from  notes WHERE id=?";
-		String[] id= new String[]{noteId};
-		Cursor result= basicQuery(ctx,sql,id);
-		HashMap<String, String> note = new HashMap<String,String>();
-		while(result.moveToNext())
-		{
+		String[] id = new String[] { noteId };
+		Cursor result = basicQuery(ctx, sql, id);
+		HashMap<String, String> note = new HashMap<String, String>();
+		while (result.moveToNext()) {
 			String content = result.getString(result.getColumnIndex("content"));
-			String time = result.getString(result.getColumnIndex("last_change_date"));
+			String time = result.getString(result
+					.getColumnIndex("last_change_date"));
 			note.put("content", content);
 			note.put("time", time);
 		}
-		
+
 		return note;
 	}
 
@@ -182,10 +172,10 @@ public class SQLOperate {
 			String extra, String event_status) {
 		DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
 		SQLiteDatabase db = databaseHelper.getWritableDatabase();
-		
+
 		ContentValues cv = new ContentValues();
 		String id = null;
-		int strid=-1;
+		int strid = -1;
 		cv.put("id", id);
 		String time_stamp = String.valueOf(Calendar.getInstance().getTime()
 				.getTime());
@@ -205,13 +195,14 @@ public class SQLOperate {
 		try {
 			Log.d(DBtag, cv.toString());
 			db.insert("events", null, cv);
-			//get last inserted id
-			//获取自增id
-			Cursor cursor = db.rawQuery("select last_insert_rowid() from person",null);                
-			if(cursor.moveToFirst())    
-			   strid = cursor.getInt(0);    
+			// get last inserted id
+			// 获取自增id
+			Cursor cursor = db.rawQuery(
+					"select last_insert_rowid() from person", null);
+			if (cursor.moveToFirst())
+				strid = cursor.getInt(0);
 			db.setTransactionSuccessful();
-		
+
 			Log.d(DBtag, "success operation");
 		} finally {
 			db.endTransaction();// 由事务的标志决定是提交事务，还是回滚事务
@@ -232,14 +223,14 @@ public class SQLOperate {
 		SQLiteDatabase db = databaseHelper.getWritableDatabase();
 
 		ContentValues cv = new ContentValues();
-		int strid=-1; 
+		int strid = -1;
 		String id = null;
 		cv.put("id", id);
 		String time_stamp = String.valueOf(Calendar.getInstance().getTime()
 				.getTime());
 		// get a time_stamp
 		cv.put("time_stamp", time_stamp);
-		
+
 		cv.put("content", content);
 		cv.put("last_change_date", time_stamp);
 		db.beginTransaction();// 开始事务
@@ -249,16 +240,17 @@ public class SQLOperate {
 			db.setTransactionSuccessful();
 
 			Log.d(DBtag, "success operation");
-			//get last inserted id
-			//获取自增id
-			Cursor cursor = db.rawQuery("select last_insert_rowid() from person",null);                
-			if(cursor.moveToFirst())    
-			   strid = cursor.getInt(0);    
+			// get last inserted id
+			// 获取自增id
+			Cursor cursor = db.rawQuery(
+					"select last_insert_rowid() from notes", null);
+			if (cursor.moveToFirst())
+				strid = cursor.getInt(0);
 		} finally {
 			db.endTransaction();// 由事务的标志决定是提交事务，还是回滚事务
 		}
 		db.close();
-		
+
 		return strid;
 	}
 
@@ -335,16 +327,15 @@ public class SQLOperate {
 		db.close();
 		return ifSuccessful;
 	}
-	
+
 	/**
-	 * 增加一个文件夹
-	 * method to add one folder
+	 * 增加一个文件夹 method to add one folder
+	 * 
 	 * @param ctx
 	 * @param name
 	 * @return
 	 */
-	public static boolean addFolder(Context ctx,String name)
-	{
+	public static boolean addFolder(Context ctx, String name) {
 		DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
 		SQLiteDatabase db = databaseHelper.getWritableDatabase();
 		boolean ifSuccessful = false;
@@ -415,7 +406,7 @@ public class SQLOperate {
 			db.setTransactionSuccessful();
 			ifSuccessful = true;
 			Log.d(DBtag, "success operation");
-	
+
 		} finally {
 			db.endTransaction();// 由事务的标志决定是提交事务，还是回滚事务
 		}
@@ -652,7 +643,8 @@ public class SQLOperate {
 	 * @param note_id
 	 * @return
 	 */
-	public static boolean deleteNote(Context ctx, long note_id) {
+	public static boolean deleteNote(Context ctx, long note_id,
+			boolean ifRelatedEvent) {
 		DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
 		SQLiteDatabase db = databaseHelper.getWritableDatabase();
 		boolean ifSuccessful = false;
@@ -663,7 +655,9 @@ public class SQLOperate {
 			String target = String.valueOf(note_id);
 			String[] whereArgs = { target };// 删除的条件参数
 			db.delete("notes", whereClause2, whereArgs);// 执行删除
-			db.delete("event_note_related", whereClause, whereArgs);
+			if (ifRelatedEvent) {
+				db.delete("event_note_related", whereClause, whereArgs);
+			}
 			db.setTransactionSuccessful();
 			Log.d(DBtag, "success operation");
 			ifSuccessful = true;

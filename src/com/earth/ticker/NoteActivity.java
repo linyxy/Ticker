@@ -1,6 +1,7 @@
 package com.earth.ticker;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -32,7 +33,7 @@ public class NoteActivity extends Activity {
 		noteContent = (TextView) findViewById(R.id.note_edit);
 		Intent in = this.getIntent();
 		Bundle bundle = in.getExtras();
-		noteId = (String) bundle.get("note_id");
+		noteId = String.valueOf(bundle.get("note_id"));
 		// way to come last activity
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
@@ -47,15 +48,16 @@ public class NoteActivity extends Activity {
 		String time = note.get("time");
 		// convert time into specific form
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-		Date date = new Date(time);
+		Long a = Long.valueOf(time);
+		Date date = new Date(a);
 		String d = df.format(date);
 
 		noteTime.setText(d);
 	}
 
 	@Override
-	protected void onStop() {
-		SQLOperate.updateNote(this, noteId, (String) noteContent.getText());
+	protected void onPause() {
+		SQLOperate.updateNote(this, noteId,  noteContent.getText().toString());
 		super.onStop();
 	}
 
@@ -70,16 +72,29 @@ public class NoteActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.action_new:
-			Intent intent = new Intent(this, NoteActivity.class);
-			startActivity(intent);
-			this.finish();
+			noteContent.setText("");
+			noteId=String.valueOf(SQLOperate.addNote(this, ""));
+			convertTime(String.valueOf(new Date().getTime()));
+			break;
 		case R.id.action_delete:
-			SQLOperate.deleteNote(this, Integer.parseInt(noteId));
+			SQLOperate.deleteNote(this, Integer.parseInt(noteId),false);
 			this.finish();
-		default:
-			return super.onOptionsItemSelected(item);
+			break;
+		case R.id.action_finish:
+			this.finish();
+			break;
 		}
+			return super.onOptionsItemSelected(item);
+		
 	}
-	
 
+	public static String convertTime(String time)
+	{
+		// convert time into specific form
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+		Long a = Long.valueOf(time);
+		Date date = new Date(a);
+		String d = df.format(date);
+		return d;
+	}
 }
