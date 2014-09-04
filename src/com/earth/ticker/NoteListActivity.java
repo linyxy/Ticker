@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -18,46 +17,32 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
 import com.earth.ticker.util.SQLOperate;
 
-public class NoteListActivity extends Activity {
+public class NoteListActivity extends ListActivity {
 
 	String[] con = { "content", "date" };
 	int[] ids = { R.id.note_item_content, R.id.note_item_date };
-	List<Map<String, Object>> listData=new ArrayList<Map<String, Object>>();
-	private ListView listView;
+	List<Map<String, Object>> listData;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);	
-		setContentView(R.layout.activity_notes);
-		listView=(ListView)findViewById(R.id.notes_list);
-		listData = getData();
-		Log.d("note","data of list->"+ listData.toString());
-		SimpleAdapter adapter = new SimpleAdapter(this, listData,
-				R.layout.note_list_item, con, ids);
-		listView.setAdapter(adapter);
-		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() 
-		{
-			@Override
-			public void onItemClick(AdapterView<?> parent, View view,
-			int position, long id) {				
-				Map<String, Object> item = listData.get(position);
-				String noteId = (String) item.get("note_id");
-				Intent intent = new Intent();
-				intent.setClass(getApplicationContext(), NoteActivity.class);
-				intent.putExtra("note_id", noteId);
-				startActivity(intent);
-			}
-			
-		});
+		super.onCreate(savedInstanceState);
+		
+
+		
 	}
 
 	@Override
-	protected void onStart() {	
+	protected void onStart() {
+		listData = getData();
+		Log.d("note","data of list->"+ listData.toString());
+		SimpleAdapter adapter = new SimpleAdapter(this, listData,
+				R.layout.activity_notes, con, ids);
+		setListAdapter(adapter);
 		super.onStart();
 	}
 
@@ -65,7 +50,6 @@ public class NoteListActivity extends Activity {
 
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		Cursor result = (Cursor) SQLOperate.getAllNotes(this);
-		result.moveToFirst();
 		while (result.moveToNext()) {
 			Map<String, Object> note = new HashMap<String, Object>();
 			note.put("note_id", result.getInt(result.getColumnIndex("id")));
@@ -116,6 +100,17 @@ public class NoteListActivity extends Activity {
 		}
 
 		return super.onOptionsItemSelected(item);
-	}	
+	}
+
+	@Override
+	protected void onListItemClick(ListView l, View v, int position, long id) {
+		Map<String, Object> item = listData.get(position);
+		String noteId = (String) item.get("note_id");
+		Intent intent = new Intent();
+		intent.setClass(getApplicationContext(), NoteActivity.class);
+		intent.putExtra("note_id", noteId);
+		startActivity(intent);
+		super.onListItemClick(l, v, position, id);
+	}
 
 }
