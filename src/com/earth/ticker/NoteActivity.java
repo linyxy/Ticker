@@ -56,8 +56,9 @@ public class NoteActivity extends Activity {
 	}
 
 	@Override
-	protected void onPause() {
-		SQLOperate.updateNote(this, noteId,  noteContent.getText().toString());
+	protected void onStop() {
+//		if (noteContent.getText().toString().trim().equals(""))
+//			SQLOperate.deleteNote(this, Integer.parseInt(noteId), false);
 		super.onStop();
 	}
 
@@ -73,23 +74,24 @@ public class NoteActivity extends Activity {
 		switch (item.getItemId()) {
 		case R.id.action_new:
 			noteContent.setText("");
-			noteId=String.valueOf(SQLOperate.addNote(this, ""));
+			noteId = String.valueOf(SQLOperate.addNote(this, ""));
 			convertTime(String.valueOf(new Date().getTime()));
 			break;
 		case R.id.action_delete:
-			SQLOperate.deleteNote(this, Integer.parseInt(noteId),false);
+			SQLOperate.deleteNote(this, Integer.parseInt(noteId), false);
 			this.finish();
 			break;
 		case R.id.action_finish:
+			SQLOperate.updateNote(this, noteId, noteContent.getText()
+					.toString());
 			this.finish();
 			break;
 		}
-			return super.onOptionsItemSelected(item);
-		
+		return super.onOptionsItemSelected(item);
+
 	}
 
-	public static String convertTime(String time)
-	{
+	public static String convertTime(String time) {
 		// convert time into specific form
 		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm");
 		Long a = Long.valueOf(time);

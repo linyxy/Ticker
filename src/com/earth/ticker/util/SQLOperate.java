@@ -93,7 +93,7 @@ public class SQLOperate {
 	}
 
 	public static Cursor getAllNotes(Context ctx) {
-		String sql = "select * from  notes";
+		String sql = "select * from  notes ORDER BY last_change_date DESC";
 		Cursor result = basicQuery(ctx, sql, null);
 		Log.d(DBtag, "getCount of Cursor->" + String.valueOf(result.getCount()));
 

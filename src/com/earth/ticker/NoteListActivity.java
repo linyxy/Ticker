@@ -28,37 +28,48 @@ public class NoteListActivity extends Activity {
 
 	String[] con = { "content", "date" };
 	int[] ids = { R.id.note_item_content, R.id.note_item_date };
-	List<Map<String, Object>> listData=new ArrayList<Map<String, Object>>();
+	List<Map<String, Object>> listData = new ArrayList<Map<String, Object>>();
 	private ListView listView;
+	private SimpleAdapter adapter;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);	
+		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_notes);
-		listView=(ListView)findViewById(R.id.notes_list);
+		listView = (ListView) findViewById(R.id.notes_list);
 		listData = getData();
-		Log.d("note","data of list->"+ listData.toString());
-		SimpleAdapter adapter = new SimpleAdapter(this, listData,
-				R.layout.note_list_item, con, ids);
+		Log.d("note", "data of list->" + listData.toString());
+		adapter = new SimpleAdapter(this, listData, R.layout.note_list_item,
+				con, ids);
 		listView.setAdapter(adapter);
-		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() 
-		{
+		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view,
-			int position, long id) {				
+					int position, long id) {
 				Map<String, Object> item = listData.get(position);
-				String noteId = (String) item.get("note_id");
+				String noteId = String.valueOf(item.get("note_id"));
 				Intent intent = new Intent();
 				intent.setClass(getApplicationContext(), NoteActivity.class);
 				intent.putExtra("note_id", noteId);
 				startActivity(intent);
 			}
-			
+
 		});
+
 	}
 
 	@Override
-	protected void onStart() {	
+	protected void onStart() {
 		super.onStart();
+
+	}
+
+	@Override
+	protected void onRestart() {
+		listData = getData();
+		adapter.notifyDataSetChanged();
+		listView.setAdapter(adapter);
+		super.onRestart();
 	}
 
 	protected List<Map<String, Object>> getData() {
@@ -66,6 +77,7 @@ public class NoteListActivity extends Activity {
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		Cursor result = (Cursor) SQLOperate.getAllNotes(this);
 		result.moveToFirst();
+		
 		while (result.moveToNext()) {
 			Map<String, Object> note = new HashMap<String, Object>();
 			note.put("note_id", result.getInt(result.getColumnIndex("id")));
@@ -82,7 +94,7 @@ public class NoteListActivity extends Activity {
 					"time of note->"
 							+ result.getString(result
 									.getColumnIndex("last_change_date")));
-			
+
 			long a = Long.valueOf(time);
 			// convert time
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
@@ -116,6 +128,6 @@ public class NoteListActivity extends Activity {
 		}
 
 		return super.onOptionsItemSelected(item);
-	}	
+	}
 
 }
