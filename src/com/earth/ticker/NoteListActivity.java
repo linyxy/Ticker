@@ -35,6 +35,7 @@ public class NoteListActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		// 这个页面就是标准的listView
 		setContentView(R.layout.activity_notes);
 		listView = (ListView) findViewById(R.id.notes_list);
 		listData = getData();
@@ -66,24 +67,34 @@ public class NoteListActivity extends Activity {
 
 	@Override
 	protected void onRestart() {
-		listData = getData();
+		// 刷新listView
+		listData.clear();
+		listData.addAll(getData());
 		adapter.notifyDataSetChanged();
-		listView.setAdapter(adapter);
+		// listView.setAdapter(adapter);
 		super.onRestart();
 	}
 
 	protected List<Map<String, Object>> getData() {
-
+		// 获得listView填充内容
 		List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
 		Cursor result = (Cursor) SQLOperate.getAllNotes(this);
-		result.moveToFirst();
-		
+		// result.moveToFirst();
+
 		while (result.moveToNext()) {
 			Map<String, Object> note = new HashMap<String, Object>();
 			note.put("note_id", result.getInt(result.getColumnIndex("id")));
 
 			note.put("content",
 					result.getString(result.getColumnIndex("content")));
+			//if content is nothing delete this note
+			//如果内容为空，删除这条note
+			if (result.getString(result.getColumnIndex("content")).trim()
+					.equalsIgnoreCase("")) {
+				SQLOperate.deleteNote(getApplicationContext(),
+						result.getInt(result.getColumnIndex("id")), false);
+				continue;
+			}
 			Log.d("note",
 					"content of note->"
 							+ result.getString(result.getColumnIndex("content")));
