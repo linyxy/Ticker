@@ -210,6 +210,47 @@ public class SQLOperate {
 		db.close();
 		return strid;
 	}
+	
+	/**
+	 * a method that add event and return the id of that event
+	 * a way to get new event id
+	 * keep notice that 1. name be assign "unsure"
+	 * @param ctx
+	 * @return eventId
+	 */
+	public static int addEvent(Context ctx) {
+		DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
+		SQLiteDatabase db = databaseHelper.getWritableDatabase();
+
+		ContentValues cv = new ContentValues();
+		int strid = -1;
+		String id = null;
+		cv.put("id", id);
+		String time_stamp = String.valueOf(Calendar.getInstance().getTime()
+				.getTime());
+		// get a time_stamp
+		cv.put("time_stamp", time_stamp);
+		cv.put("name", "unsure");
+		db.beginTransaction();// 开始事务
+		try {
+			Log.d(DBtag, cv.toString());
+			db.insert("events", null, cv);
+			db.setTransactionSuccessful();
+
+			Log.d(DBtag, "success operation");
+			// get last inserted id
+			// 获取自增id
+			Cursor cursor = db.rawQuery(
+					"select last_insert_rowid() from notes", null);
+			if (cursor.moveToFirst())
+				strid = cursor.getInt(0);
+		} finally {
+			db.endTransaction();// 由事务的标志决定是提交事务，还是回滚事务
+		}
+		db.close();
+
+		return strid;
+	}
 
 	/**
 	 * the method to add note into db
