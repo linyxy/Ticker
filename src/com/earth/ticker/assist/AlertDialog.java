@@ -22,16 +22,16 @@ public class AlertDialog {
 	LinearLayout buttonLayout;
 	
 	public AlertDialog(Context context) {
-		// 
+		//
 		this.context=context;
 		ad=new android.app.AlertDialog.Builder(context).create();
-		//点击dialog外消失
+		//鐐瑰嚮dialog澶栨秷澶�
 		ad.setCanceledOnTouchOutside(true);
 		ad.show();
-		//关键在下面的两行,使用window.setContentView,替换整个对话框窗口的布局
+		//鍏抽敭鍦ㄤ笅闈㈢殑涓よ,浣跨敤window.setContentView,鏇挎崲鏁翠釜瀵硅瘽妗嗙獥鍙ｇ殑甯冨眬
 		Window window = ad.getWindow();
 		window.setContentView(R.layout.addfolder_alertdialog);
-		//弹出软键盘
+		//寮瑰嚭杞敭鐩�
 		window.clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
 		titleView=(TextView)window.findViewById(R.id.title);
 		messageView=(TextView)window.findViewById(R.id.message);
@@ -42,7 +42,7 @@ public class AlertDialog {
 		
 		//String folder_name=folderName.getText().toString();
 	}
-			
+    
 	public void setTitle(String title) {
 		titleView.setText(title);
 	}
@@ -51,12 +51,13 @@ public class AlertDialog {
 	{
 		messageView.setText(message);
 	}
-		
-	public void setEdit(boolean visible) {
-		// 
+    
+	public void setEdit(boolean visible,String hint) {
+		//
 		if(visible)
 		{
 			folderName.setVisibility(View.VISIBLE);
+			folderName.setHint(hint);
 		}else
 		{
 			folderName.setVisibility(View.GONE);
@@ -67,41 +68,42 @@ public class AlertDialog {
 		return folderName.getText().toString();
 	}
 	/**
-	 * 设置按钮
+	 * 璁剧疆鎸夐挳
 	 * @param text
 	 * @param listener
 	 */
 	public void setPositiveButton(String text,final View.OnClickListener listener)
 	{
-		Button button=(Button)buttonLayout.findViewById(R.id.position_button);			
+		Button button=(Button)buttonLayout.findViewById(R.id.position_button);
 		button.setText(text);
 		button.setTextColor(Color.parseColor("#3CB6E3"));
 		button.setTextSize(20);
-		button.setOnClickListener(listener);		
+		button.setOnClickListener(listener);
 	}
- 
+    
 	/**
-	 * 设置按钮
+	 * 璁剧疆鎸夐挳
 	 * @param text
 	 * @param listener
 	 */
 	public void setNegativeButton(String text,final View.OnClickListener listener)
 	{
 		
-		Button button=(Button)buttonLayout.findViewById(R.id.negtive_button);		
+		Button button=(Button)buttonLayout.findViewById(R.id.negtive_button);
 		button.setText(text);
 		button.setTextColor(Color.parseColor("#3CB6E3"));
 		button.setTextSize(20);
-		button.setOnClickListener(listener);				
- 
+		button.setOnClickListener(listener);
+        
 	}
 	/**
-	 * 关闭对话框
+	 * 鍏抽棴瀵硅瘽妗�
 	 */
 	public void dismiss() {
 		ad.dismiss();
 	}
-
+    
 	
 	
+    
 }

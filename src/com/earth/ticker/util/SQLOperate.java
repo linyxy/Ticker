@@ -1,10 +1,10 @@
 package com.earth.ticker.util;
 
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import android.content.ContentValues;
@@ -15,17 +15,18 @@ import android.util.Log;
 
 public class SQLOperate {
 	public static String DBtag = "database";
-
+    
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
-
+		
+        
 	}
-
+    
 	/**
 	 * sample method of SQL operation
-	 * 
+	 *
 	 * @param ctx
 	 * @return
 	 */
@@ -38,7 +39,7 @@ public class SQLOperate {
 		try {
 			Log.d(DBtag, cv.toString());
 			db.setTransactionSuccessful();// 调用此方法会在执行到endTransaction()
-											// 时提交当前事务，如果不调用此方法会回滚事务
+            // 时提交当前事务，如果不调用此方法会回滚事务
 			ifSuccessful = true;
 			Log.d(DBtag, "success operation");
 		} finally {
@@ -47,93 +48,176 @@ public class SQLOperate {
 		db.close();
 		return ifSuccessful;
 	}
-
+	
 	/**
-	 * basic query method even myself found this method useless 我也觉得这个函数没啥用
-	 * 
+	 * basic query method
+	 * even myself found this method useless
+	 * 我也觉得这个函数没啥用
 	 * @param ctx
 	 * @param sql
 	 * @param selectionArgs
 	 * @return
 	 */
-	public static Cursor basicQuery(Context ctx, String sql,
-			String[] selectionArgs) {
+	public static Cursor basicQuery(Context ctx,String sql,String[] selectionArgs) {
 		DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
+		
 		SQLiteDatabase db = databaseHelper.getReadableDatabase();
+		
 		Cursor cur = null;
 		cur = db.rawQuery(sql, selectionArgs);
-		Log.d(DBtag, "getCount of Cursor->" + String.valueOf(cur.getCount()));
+		Log.d(DBtag,"getCount of Cursor->"+String.valueOf(cur.getCount()));
 		Log.d(DBtag, "success operation in Query");
 		db.close();
 		return cur;
 	}
-
+	
 	/**
 	 * Method to get all the folders
-	 * 
 	 * @param ctx
 	 * @return
 	 */
-	public static ArrayList<String> getAllFolders(Context ctx) {
+	public static ArrayList<String> getAllFolders(Context ctx)
+	{
 		ArrayList<String> folders = new ArrayList<String>();
 		String sql = "select * from  event_folder_related";
-		Cursor result = basicQuery(ctx, sql, null);
-		Log.d(DBtag, "getCount of Cursor->" + String.valueOf(result.getCount()));
-		while (result.moveToNext()) {
+		Cursor result= basicQuery(ctx,sql,null);
+		Log.d(DBtag,"getCount of Cursor->"+String.valueOf(result.getCount()));
+		//result.moveToFirst();
+		while(result.moveToNext())
+		{
 			int column = result.getColumnIndex("name");
-			Log.d(DBtag, "name is at column->" + String.valueOf(column));
+			Log.d(DBtag,"name is at column->"+ String.valueOf(column));
 			String folder = result.getString(column);
-			if (!folders.contains(folder)) {
+			if(!folders.contains(folder))
+			{
 				folders.add(folder);
 			}
 		}
-
+        
 		return folders;
-
+		
 	}
-
-	public static Cursor getAllNotes(Context ctx) {
-		String sql = "select * from  notes ORDER BY last_change_date DESC";
-		Cursor result = basicQuery(ctx, sql, null);
-		Log.d(DBtag, "getCount of Cursor->" + String.valueOf(result.getCount()));
-
-		return result;
-
-	}
-
+	
 	/**
 	 * method to get all eventIdBy the name of folder
-	 * 
 	 * @param ctx
 	 * @param folderName
 	 * @return
 	 */
-	public static ArrayList<Long> getAllEventIdByFolder(Context ctx,
-			String folderName) {
-
+	public static ArrayList<Long> getAllEventIdbyFolder(Context ctx,String folderName)
+	{
 		ArrayList<Long> eventIds = new ArrayList<Long>();
 		String sql = "select * from  event_folder_related WHERE event_id=?";
-		String[] folder = new String[] { folderName };
-		Cursor result = basicQuery(ctx, sql, folder);
-		while (result.moveToNext()) {
-			long event = result.getLong(result.getColumnIndex("event_id"));
-			if (!eventIds.contains(event)) {
-				eventIds.add(event);
+		String[] folder= new String[]{"folderName"};
+		Cursor result= basicQuery(ctx,sql,folder);
+		
+		if(result != null && result.getCount() >= 1){
+			
+            while(result.moveToNext())
+            {
+                if(result.isNull(result.getColumnIndex("event_id")))
+                {
+                    long event = result.getLong(result.getColumnIndex("event_id"));
+                    if(!eventIds.contains(event))
+                    {
+                        eventIds.add(event);
+                    }
+                }
+            }
+            
+            return eventIds;
+		}
+		
+		return null;
+	}
+    
+	/**
+	 * 通过eventId获得subEventId
+	 * @param ctx
+	 * @param event_id
+	 * @return
+	 */
+	public static ArrayList<Long> getAllSubEventIdbyEventId(Context ctx,long event_id)
+	{
+		ArrayList<Long> subEventIds=new ArrayList<Long>();
+		String sql="select * from event_sub_event_related WHERE sub_event_id=?";
+		String[] eventId={String.valueOf(event_id)};
+		Cursor result=basicQuery(ctx,sql,eventId);
+		//result.moveToFirst();
+		while(result.moveToNext())
+		{
+			long subEvent=result.getLong(result.getColumnIndex("sub_event_id"));
+			if(!subEventIds.contains(subEvent))
+			{
+				subEventIds.add(subEvent);
 			}
 		}
-
-		return eventIds;
+		
+		return 	subEventIds;
 	}
-
+	
+	/**
+	 * 通过eventId获得noteId
+	 * @param ctx
+	 * @param event_id
+	 * @return
+	 */
+	public static ArrayList<Long> getAllNoteIdbyEventId(Context ctx,long event_id)
+	{
+		ArrayList<Long> noteIds=new ArrayList<Long>();
+		String sql="select * from event_note_related WHERE note_id=?";
+		String[] eventId={String.valueOf(event_id)};
+		Cursor result=basicQuery(ctx,sql,eventId);
+		//result.moveToFirst();
+		while(result.moveToNext())
+		{
+			long noteId=result.getLong(result.getColumnIndex("note_id"));
+			if(!noteIds.contains(noteId))
+			{
+				noteIds.add(noteId);
+			}
+		}
+		
+		return 	noteIds;
+	}
+	
+	public static Cursor getAllNotes(Context ctx) {
+		String sql = "select * from  notes";
+		Cursor result = basicQuery(ctx, sql, null);
+		Log.d(DBtag, "getCount of Cursor->" + String.valueOf(result.getCount()));
+        
+		return result;
+        
+	}
+    
+	
+	public static ArrayList<String> getContactWorkByEventId(Context ctx,long event_id )
+	{
+		ArrayList<String> workNames =new ArrayList<String>();
+		String sql="select * from event_contact_work_related WHERE name=?";
+		String[] eventId={String.valueOf(event_id)};
+		Cursor result=basicQuery(ctx,sql,eventId);
+		while(result.moveToNext())
+		{
+			String workName =result.getString(result.getColumnIndex("name"));
+			if(!workNames.contains(workName))
+			{
+				workNames.add(workName);
+			}
+			
+		}
+		
+		return workNames;
+	}
 	/**
 	 * method to get note from db
-	 * 
+	 *
 	 * @param ctx
 	 * @param noteId
 	 * @return map content last_change_time
 	 */
 	public static Map<String, String> getNoteById(Context ctx, String noteId) {
-
+        
 		String sql = "select * from  notes WHERE id=?";
 		String[] id = new String[] { noteId };
 		Cursor result = basicQuery(ctx, sql, id);
@@ -141,17 +225,17 @@ public class SQLOperate {
 		while (result.moveToNext()) {
 			String content = result.getString(result.getColumnIndex("content"));
 			String time = result.getString(result
-					.getColumnIndex("last_change_date"));
+                                           .getColumnIndex("last_change_date"));
 			note.put("content", content);
 			note.put("time", time);
 		}
-
+        
 		return note;
 	}
-
+    
 	/**
 	 * method to add a new event
-	 * 
+	 *
 	 * @param ctx
 	 * @param name
 	 * @param folder
@@ -167,18 +251,17 @@ public class SQLOperate {
 	 * @return
 	 */
 	public static int addEvent(Context ctx, String name, String folder,
-			String icon, String time_start, String duration, String repeat,
-			String alarm, String alarm_name, String alarm_address,
-			String extra, String event_status) {
+                                   String icon, String time_start, String duration, String repeat,
+                                   String alarm, String alarm_name, String alarm_address,
+                                   String extra, String event_status) {
 		DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
 		SQLiteDatabase db = databaseHelper.getWritableDatabase();
-
+		boolean ifSuccessful = false;
 		ContentValues cv = new ContentValues();
 		String id = null;
-		int strid = -1;
 		cv.put("id", id);
 		String time_stamp = String.valueOf(Calendar.getInstance().getTime()
-				.getTime());
+                                           .getTime());
 		// get a time_stamp
 		cv.put("time_stamp", time_stamp);
 		cv.put("name", name);
@@ -191,6 +274,7 @@ public class SQLOperate {
 		cv.put("alarm_address", alarm_address);
 		cv.put("extra", extra);
 		cv.put("event_status", event_status);
+		int strid = -1;
 		db.beginTransaction();// 开始事务
 		try {
 			Log.d(DBtag, cv.toString());
@@ -262,42 +346,42 @@ public class SQLOperate {
 	public static int addNote(Context ctx, String content) {
 		DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
 		SQLiteDatabase db = databaseHelper.getWritableDatabase();
-
+        
 		ContentValues cv = new ContentValues();
 		int strid = -1;
 		String id = null;
 		cv.put("id", id);
 		String time_stamp = String.valueOf(Calendar.getInstance().getTime()
-				.getTime());
+                                           .getTime());
 		// get a time_stamp
 		cv.put("time_stamp", time_stamp);
-
+        
 		cv.put("content", content);
 		cv.put("last_change_date", time_stamp);
-		db.beginTransaction();// 开始事务
+		db.beginTransaction();//开始事物
 		try {
 			Log.d(DBtag, cv.toString());
 			db.insert("notes", null, cv);
 			db.setTransactionSuccessful();
-
+            
 			Log.d(DBtag, "success operation");
-			// get last inserted id
-			// 获取自增id
+			
 			Cursor cursor = db.rawQuery(
-					"select last_insert_rowid() from notes", null);
+                                        "select last_insert_rowid() from notes", null);
 			if (cursor.moveToFirst())
 				strid = cursor.getInt(0);
 		} finally {
-			db.endTransaction();// 由事务的标志决定是提交事务，还是回滚事务
+			db.endTransaction();
 		}
 		db.close();
-
+        
 		return strid;
 	}
-
+    
+    
 	/**
 	 * method insert a sub event and relate to event
-	 * 
+	 *
 	 * @param ctx
 	 * @param name
 	 * @param icon
@@ -305,7 +389,7 @@ public class SQLOperate {
 	 * @return
 	 */
 	public static boolean addSubEvent(Context ctx, String name, String icon,
-			long related_event_id) {
+                                      long related_event_id) {
 		DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
 		SQLiteDatabase db = databaseHelper.getWritableDatabase();
 		boolean ifSuccessful = false;
@@ -313,7 +397,7 @@ public class SQLOperate {
 		String id = null;
 		cv.put("id", id);
 		String time_stamp = String.valueOf(Calendar.getInstance().getTime()
-				.getTime());
+                                           .getTime());
 		// get a time_stamp
 		cv.put("time_stamp", time_stamp);
 		cv.put("name", name);
@@ -327,17 +411,17 @@ public class SQLOperate {
 			db.setTransactionSuccessful();
 			ifSuccessful = true;
 			Log.d(DBtag, "success operation");
-
+            
 		} finally {
 			db.endTransaction();// 由事务的标志决定是提交事务，还是回滚事务
 		}
 		db.close();
 		return ifSuccessful;
 	}
-
+    
 	/**
 	 * method to add a new contact into an event
-	 * 
+	 *
 	 * @param ctx
 	 * @param event_id
 	 * @param name
@@ -346,7 +430,7 @@ public class SQLOperate {
 	 * @return
 	 */
 	public static boolean addContact(Context ctx, long event_id, String name,
-			String contact, String work) {
+                                     String contact, String work) {
 		DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
 		SQLiteDatabase db = databaseHelper.getWritableDatabase();
 		boolean ifSuccessful = false;
@@ -368,20 +452,23 @@ public class SQLOperate {
 		db.close();
 		return ifSuccessful;
 	}
-
+	
 	/**
-	 * 增加一个文件夹 method to add one folder
-	 * 
+	 * 增加一个文件夹
+	 * method to add one folder
 	 * @param ctx
 	 * @param name
 	 * @return
 	 */
-	public static boolean addFolder(Context ctx, String name) {
+	public static boolean addFolder(Context ctx,String name)
+	{
 		DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
 		SQLiteDatabase db = databaseHelper.getWritableDatabase();
 		boolean ifSuccessful = false;
 		ContentValues cv = new ContentValues();
 		cv.put("name", String.valueOf(name));
+		cv.put("event_id", "-1");
+		
 		db.beginTransaction();// 开始事务
 		try {
 			Log.d(DBtag, cv.toString());
@@ -395,10 +482,10 @@ public class SQLOperate {
 		db.close();
 		return ifSuccessful;
 	}
-
+    
 	/**
 	 * method to add event into folder
-	 * 
+	 *
 	 * @param ctx
 	 * @param event_id
 	 * @param name
@@ -424,10 +511,10 @@ public class SQLOperate {
 		db.close();
 		return ifSuccessful;
 	}
-
+    
 	/**
 	 * method insert related id with sub related one
-	 * 
+	 *
 	 * @param ctx
 	 * @param eventId
 	 * @param subEventId
@@ -447,17 +534,17 @@ public class SQLOperate {
 			db.setTransactionSuccessful();
 			ifSuccessful = true;
 			Log.d(DBtag, "success operation");
-
+            
 		} finally {
 			db.endTransaction();// 由事务的标志决定是提交事务，还是回滚事务
 		}
 		db.close();
 		return ifSuccessful;
 	}
-
+    
 	/**
 	 * method to relate event with note
-	 * 
+	 *
 	 * @param ctx
 	 * @param eventId
 	 * @param noteId
@@ -477,17 +564,17 @@ public class SQLOperate {
 			db.setTransactionSuccessful();
 			ifSuccessful = true;
 			Log.d(DBtag, "success operation");
-
+            
 		} finally {
 			db.endTransaction();// 由事务的标志决定是提交事务，还是回滚事务
 		}
 		db.close();
 		return ifSuccessful;
 	}
-
+    
 	/**
 	 * method to delete an event
-	 * 
+	 *
 	 * @param ctx
 	 * @param eventId
 	 * @return
@@ -498,12 +585,12 @@ public class SQLOperate {
 		boolean ifSuccessful = false;
 		db.beginTransaction();// 开始事务
 		try {
-			String whereClause = "event_id=? ";// 删除的条件
+			String whereClause = "id=? ";// 删除的条件
 			String[] whereArgs = { String.valueOf(eventId) };// 删除的条件参数
 			db.delete("events", whereClause, whereArgs);// 执行删除
 			db.setTransactionSuccessful();
 			Log.d(DBtag, "success operation");
-
+            
 			ifSuccessful = true;
 		} finally {
 			db.endTransaction();// 由事务的标志决定是提交事务，还是回滚事务
@@ -511,25 +598,31 @@ public class SQLOperate {
 		db.close();
 		return ifSuccessful;
 	}
-
+    
 	/**
 	 * method to delete a folder action would not delete related activity but
 	 * activity are not moved away they may lost some where or bug would occurr
-	 * 
+	 *
 	 * @param ctx
 	 * @param eventId
 	 * @param name
 	 * @return
 	 */
 	public static boolean deleteFolder(Context ctx, String name) {
+		
 		DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
+		
 		SQLiteDatabase db = databaseHelper.getWritableDatabase();
+		
 		boolean ifSuccessful = false;
 		db.beginTransaction();// 开始事务
 		try {
-			String whereClause = " name=?";// 删除的条件
+			String whereClause = "name=?";// 删除的条件
 			String[] whereArgs = { name };// 删除的条件参数
+			
 			db.delete("event_folder_related", whereClause, whereArgs);// 执行删除
+			//String sql = "delete from  event_folder_related where name=?";
+			//db.execSQL(sql,whereArgs);
 			db.setTransactionSuccessful();
 			Log.d(DBtag, "success operation");
 			ifSuccessful = true;
@@ -539,10 +632,10 @@ public class SQLOperate {
 		db.close();
 		return ifSuccessful;
 	}
-
+    
 	/**
 	 * delete the folder with its related events
-	 * 
+	 *
 	 * @param ctx
 	 * @param name
 	 * @return
@@ -554,25 +647,26 @@ public class SQLOperate {
 		SQLiteDatabase db = databaseHelper.getReadableDatabase();
 		Cursor targetEvents = null;
 		db.beginTransaction();// 开始事务
+		
 		try {
 			String[] col = { "event_id" };
 			String[] args = { name };
 			targetEvents = db.query("event_folder_related", col, "name", args,
-					null, null, null);
+                                    null, null, null);
 			db.setTransactionSuccessful();
 			Log.d(DBtag, "success operation");
 		} finally {
 			db.endTransaction();// 由事务的标志决定是提交事务，还是回滚事务
 		}
 		db.close();
-
+        
 		// start to delete all the events in the folder
 		if (targetEvents != null) {
 			ifSuccessfulDeleteEvents = true;
 			if (targetEvents.moveToFirst()) {
 				while (!targetEvents.isLast()) {
 					long event_id = targetEvents.getLong(targetEvents
-							.getColumnIndex("event_id"));
+                                                         .getColumnIndex("event_id"));
 					boolean delete = deleteEvent(ctx, event_id);
 					if (!delete) {
 						ifSuccessfulDeleteEvents = false;
@@ -584,33 +678,32 @@ public class SQLOperate {
 		}
 		// delete the folder
 		ifSuccessfulDeleteFolder = deleteFolder(ctx, name);
-
+        
 		return ifSuccessfulDeleteEvents && ifSuccessfulDeleteFolder;
 	}
-
+    
 	/**
 	 * delete the relationship for event and note
-	 * 
+	 *
 	 * @param ctx
 	 * @param eventId
 	 * @param noteId
 	 * @return
 	 */
-	public static boolean deleteNoteRelate(Context ctx, long eventId,
-			long noteId) {
+	public static boolean deleteNoteRelate(Context ctx, long eventId) {
 		DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
 		SQLiteDatabase db = databaseHelper.getWritableDatabase();
 		boolean ifSuccessful = false;
 		db.beginTransaction();// 开始事务
 		try {
-
-			String whereClause = "event_id=? AND note_id=?";// 删除的条件
+            
+			String whereClause = "event_id=?";// 删除的条件
 			String[] whereArgs = { String.valueOf(eventId),
-					String.valueOf(noteId) };// 删除的条件参数
-			db.delete("event_sub_event_related", whereClause, whereArgs);// 执行删除
+                String.valueOf(eventId) };// 删除的条件参数
+			db.delete("event_note_related", whereClause, whereArgs);// 执行删除
 			db.setTransactionSuccessful();
 			Log.d(DBtag, "success operation");
-
+            
 			ifSuccessful = true;
 		} finally {
 			db.endTransaction();// 由事务的标志决定是提交事务，还是回滚事务
@@ -618,10 +711,10 @@ public class SQLOperate {
 		db.close();
 		return ifSuccessful;
 	}
-
+    
 	/**
 	 * method to delete a specific sub event
-	 * 
+	 *
 	 * @param ctx
 	 * @param subEventId
 	 * @return
@@ -640,7 +733,7 @@ public class SQLOperate {
 			db.delete("sub_events", whereClause2, whereArgs);
 			db.setTransactionSuccessful();
 			Log.d(DBtag, "success operation");
-
+            
 			ifSuccessful = true;
 		} finally {
 			db.endTransaction();// 由事务的标志决定是提交事务，还是回滚事务
@@ -648,27 +741,27 @@ public class SQLOperate {
 		db.close();
 		return ifSuccessful;
 	}
-
+    
 	/**
 	 * method to delete a contact
-	 * 
+	 *
 	 * @param ctx
 	 * @param eventId
 	 * @param name
 	 * @return
 	 */
-	public static boolean deleteContact(Context ctx, long eventId, String name) {
+	public static boolean deleteContact(Context ctx,String name) {
 		DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
 		SQLiteDatabase db = databaseHelper.getWritableDatabase();
 		boolean ifSuccessful = false;
 		db.beginTransaction();// 开始事务
 		try {
-			String whereClause = "event_id=? AND name=?";// 删除的条件
-			String[] whereArgs = { String.valueOf(eventId), name };// 删除的条件参数
+			String whereClause = "name=?";// 删除的条件
+			String[] whereArgs = { name };// 删除的条件参数
 			db.delete("event_contact_work_related", whereClause, whereArgs);// 执行删除
 			db.setTransactionSuccessful();
 			Log.d(DBtag, "success operation");
-
+            
 			ifSuccessful = true;
 		} finally {
 			db.endTransaction();// 由事务的标志决定是提交事务，还是回滚事务
@@ -676,12 +769,12 @@ public class SQLOperate {
 		db.close();
 		return ifSuccessful;
 	}
-
+    
 	/**
-	 * method to delete a specific note
-	 * 
+	 * delete a specific note
 	 * @param ctx
 	 * @param note_id
+	 * @param ifRelatedEvent 是否删除关联
 	 * @return
 	 */
 	public static boolean deleteNote(Context ctx, long note_id,
@@ -708,10 +801,11 @@ public class SQLOperate {
 		db.close();
 		return ifSuccessful;
 	}
-
+    
+    
 	/**
 	 * sample method to update
-	 * 
+	 *
 	 * @param ctx
 	 * @param table
 	 * @param whereClause
@@ -721,7 +815,7 @@ public class SQLOperate {
 	 * @return
 	 */
 	public static boolean sampleUpdate(Context ctx, String table,
-			String whereClause, String Args, String column, String content) {
+	                                   String whereClause, String Args, String column, String content) {
 		DatabaseHelper databaseHelper = new DatabaseHelper(ctx);
 		SQLiteDatabase db = databaseHelper.getWritableDatabase();
 		boolean ifSuccessful = false;
@@ -729,7 +823,7 @@ public class SQLOperate {
 		cv.put(column, content);// 添加要更改的字段及内容
 		whereClause = whereClause + "=?";// 修改条件
 		String[] whereArgs = { Args };// 修改条件的参数
-
+	    
 		db.beginTransaction();// 开始事务
 		try {
 			db.update(table, cv, whereClause, whereArgs);// 执行修改
@@ -745,7 +839,7 @@ public class SQLOperate {
 
 	/**
 	 * method to update a note automatically update last_change_date
-	 * 
+	 *
 	 * @param ctx
 	 * @param note_id
 	 * @param content
@@ -760,10 +854,33 @@ public class SQLOperate {
 		String time_stamp = String.valueOf(date.getTime());
 		// get a time_stamp
 		upTimeStamp = sampleUpdate(ctx, "notes", "id", id, "last_change_date",
-				time_stamp);
+                                   time_stamp);
 		return upContent && upTimeStamp;
 	}
-
+    
+	
+	/**
+	 * method to update a note automatically update last_change_date
+	 *
+	 * @param ctx
+	 * @param note_id
+	 * @param content
+	 * @return
+	 */
+	public static boolean updateNote(Context ctx, long note_id, String content) {
+		String id = String.valueOf(note_id);
+		boolean upContent = false;
+		boolean upTimeStamp = false;
+		upContent = sampleUpdate(ctx, "notes", "id", id, "content", content);
+		String time_stamp = String.valueOf(Calendar.getInstance().getTime()
+                                           .getTime());
+		// get a time_stamp
+		upTimeStamp = sampleUpdate(ctx, "notes", "id", id, "last_change_date",
+                                   time_stamp);
+		return upContent && upTimeStamp;
+	}
+    
+	
 	/**
 	 * method to update subEvent
 	 * 
@@ -775,15 +892,15 @@ public class SQLOperate {
 	 * @return
 	 */
 	public static boolean updateSubEvent(Context ctx, long subevent_id,
-			String name, String state, String icon) {
+                                         String name, String state, String icon) {
 		String id = String.valueOf(subevent_id);
 		boolean upName = sampleUpdate(ctx, "sub_events", "id", id, "name", name);
 		boolean upIcon = sampleUpdate(ctx, "sub_events", "id", id, "icon", icon);
 		boolean upState = sampleUpdate(ctx, "sub_events", "id", id, "state",
-				state);
+                                       state);
 		return upName && upIcon && upState;
 	}
-
+    
 	/**
 	 * method to change event to another folder
 	 * 
@@ -793,11 +910,24 @@ public class SQLOperate {
 	 * @return
 	 */
 	public static boolean updateFolder(Context ctx, long event_id,
-			String newFolder) {
+                                       String newFolder) {
 		String id = String.valueOf(event_id);
 		boolean upNew = sampleUpdate(ctx, "event_folder_related", "id", id,
-				"name", newFolder);
+                                     "name", newFolder);
 		return upNew;
 	}
-
+	
+	/**
+	 * change the name of a folder for all
+	 * @param ctx
+	 * @param oldFolder
+	 * @param newFolder
+	 * @return
+	 */
+	public static boolean updateFolder(Context ctx, String oldFolder,
+                                       String newFolder)
+	{
+		return  sampleUpdate(ctx,"event_folder_related","name",oldFolder,"name",newFolder);
+		
+	}
 }
