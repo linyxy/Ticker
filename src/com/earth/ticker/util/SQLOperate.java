@@ -182,7 +182,7 @@ public class SQLOperate {
 	}
 	
 	public static Cursor getAllNotes(Context ctx) {
-		String sql = "select * from  notes";
+		String sql = "select * from  notes ORDER BY time_stamp DESC";
 		Cursor result = basicQuery(ctx, sql, null);
 		Log.d(DBtag, "getCount of Cursor->" + String.valueOf(result.getCount()));
         
@@ -264,7 +264,12 @@ public class SQLOperate {
                                            .getTime());
 		// get a time_stamp
 		cv.put("time_stamp", time_stamp);
+
+		if(name == null)
+			name = "unsettle";
 		cv.put("name", name);
+		if(icon == null)
+			icon = "01";
 		cv.put("icon", icon);
 		cv.put("time_start", time_start);
 		cv.put("duration", duration);
@@ -909,7 +914,7 @@ public class SQLOperate {
 	 * @param newFolder
 	 * @return
 	 */
-	public static boolean updateFolder(Context ctx, long event_id,
+	public static boolean updateFolder(Context ctx, int event_id,
                                        String newFolder) {
 		String id = String.valueOf(event_id);
 		boolean upNew = sampleUpdate(ctx, "event_folder_related", "id", id,
@@ -930,4 +935,71 @@ public class SQLOperate {
 		return  sampleUpdate(ctx,"event_folder_related","name",oldFolder,"name",newFolder);
 		
 	}
+
+	/**
+	 * method to update event
+	 * @param ctx
+	 * @param eventId is NOTNULL
+	 * @param name
+	 * @param folder
+	 * @param icon
+	 * @param time_start
+	 * @param duration
+	 * @param repeat
+	 * @param alarm
+	 * @param alarm_name
+	 * @param alarm_address
+	 * @param extra
+	 * @param event_status
+	 * @return
+	 */
+	public static boolean updateEvent(Context ctx,int eventId, String name, String folder,
+            String icon, String time_start, String duration, String repeat,
+            String alarm, String alarm_name, String alarm_address,
+            String extra, String event_status){
+		boolean temp = true;
+		//deal with data of not provided
+		//and update all separately
+		//处理未被提供的数据
+		//并分开update
+		if(name != null)
+			temp = temp && sampleUpdate(ctx,"events","id",String.valueOf(eventId),"name",name);
+		if(folder!=null)
+			temp = temp && updateFolder(ctx,eventId,folder);
+		if(icon!=null)
+		{
+			// icon change
+		}
+		if(time_start!=null)
+			temp = temp && sampleUpdate(ctx,"events","id",String.valueOf(eventId),"time_start",time_start);
+		if(duration!=null)
+			temp = temp && sampleUpdate(ctx,"events","id",String.valueOf(eventId),"duration",duration);
+		if(repeat!=null)
+			temp = temp && sampleUpdate(ctx,"events","id",String.valueOf(eventId),"repeat",repeat);
+		if(alarm!=null)
+			temp = temp && sampleUpdate(ctx,"events","id",String.valueOf(eventId),"alarm",alarm);
+		if(alarm_name!=null)
+			temp = temp && sampleUpdate(ctx,"events","id",String.valueOf(eventId),"alarm_name",alarm_name);
+		if(extra!=null)
+			temp = temp && sampleUpdate(ctx,"events","id",String.valueOf(eventId),"extra",extra);
+		if(event_status!=null)
+			temp = temp && sampleUpdate(ctx,"events","id",String.valueOf(eventId),"event_status",event_status);
+		
+		return temp;
+		
+	}
+	
+	/**
+	 * method to update contact info
+	 * @param ctx
+	 * @param eventId
+	 * @param contacts
+	 * @return
+	 */
+	public static boolean updateContactOfEvent(Context ctx,int eventId,ArrayList<String> contacts)
+	{
+		// code to be implemented
+		return false;
+	}
+	
 }

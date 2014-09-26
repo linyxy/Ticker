@@ -50,6 +50,6 @@ public class NewEventFragment extends Fragment {
 		return newEventView;
 	}
 	
-	
+
 
 }

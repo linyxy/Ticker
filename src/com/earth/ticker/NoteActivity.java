@@ -9,6 +9,7 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -40,6 +41,7 @@ public class NoteActivity extends Activity {
 		// 添加actionbar
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
+		
 	}
 
 	@Override
@@ -98,6 +100,10 @@ public class NoteActivity extends Activity {
 				SQLOperate.updateNote(this, noteId, noteContent.getText()
 						.toString());
 			}
+			this.finish();
+			break;
+		case android.R.id.home:
+			Log.d("home", "this icon is clicked");
 			this.finish();
 			break;
 		}
