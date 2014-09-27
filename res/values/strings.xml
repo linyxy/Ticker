@@ -63,5 +63,7 @@
     <string name="note_new">新建</string>
     <string name="note_delete">删除</string>
     <string name="note_finish">完成</string>
+    <string name="new_evnet_start_time">开始时间</string>
+    <string name="new_event_start_date">进行日期</string>
 
 </resources>

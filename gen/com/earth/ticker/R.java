@@ -1476,6 +1476,8 @@ containing a value of this type.
         /**  new submast page 
          */
         public static final int new_event_name_hint=0x7f0a0015;
+        public static final int new_event_start_date=0x7f0a0043;
+        public static final int new_evnet_start_time=0x7f0a0042;
         public static final int new_note_hint=0x7f0a0016;
         public static final int new_subtask=0x7f0a002b;
         public static final int new_time_sample=0x7f0a0022;

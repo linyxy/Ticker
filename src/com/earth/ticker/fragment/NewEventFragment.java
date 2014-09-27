@@ -16,14 +16,14 @@ import android.widget.TextView;
 public class NewEventFragment extends Fragment {
 	
 	private ImageButton new_event_top_icon;
-	private TextView new_event_name;
+	private EditText  new_event_name;
 	
 	private ScrollView new_event_scroll_view;
 	private TextView new_note_text;
 	private ImageButton new_note_attach;
 	
-	private EditText new_date_picker;
-	private EditText new_time_picker;
+	private TextView new_date_picker;
+	private TextView new_time_picker;
 	
 	private Spinner new_folder_selction;
 	private ImageButton new_folder_attach;
@@ -38,7 +38,7 @@ public class NewEventFragment extends Fragment {
 	private ListView new_sub_event;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		
+		//new_time_picker = (EditText) getView().findViewById(R.id.new_time_picker);
 		super.onCreate(savedInstanceState);
 	}
 
@@ -47,8 +47,12 @@ public class NewEventFragment extends Fragment {
 			Bundle savedInstanceState) {
 		View newEventView = inflater.inflate(R.layout.fragment_new_event, container,false);
 				//TODO 
+		
+		
 		return newEventView;
 	}
+	
+	
 	
 
 
