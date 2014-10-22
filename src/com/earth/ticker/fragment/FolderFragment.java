@@ -12,6 +12,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,14 +25,15 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.earth.ticker.AddDeleteFolderActivity;
 import com.earth.ticker.DetailsEventActivity;
 import com.earth.ticker.R;
-import com.earth.ticker.assist.TasksInfo;
+import com.earth.ticker.SkeletonActivity;
+import com.earth.ticker.assist.FirstOpenSample;
 import com.earth.ticker.util.SQLOperate;
 
 public class FolderFragment extends Fragment {
@@ -39,6 +41,9 @@ public class FolderFragment extends Fragment {
 	private int height = 0;
 	private int GROUP_HEIGHT = 0;
 	private int CHILD_HEIGHT = 52;
+	public static final int REQUST_CODE_ADDDELETE = 00;
+	public static final int FOLDER_NAME_CHANG = 11;
+	private boolean exPanded;
 	private PopupWindow pop;
 	String[] groupFrom = { "folderName", "tasksCount" };
 	int[] groupTo = { R.id.folderName, R.id.tasksCount };
@@ -46,7 +51,7 @@ public class FolderFragment extends Fragment {
 	int[] childTo = { R.id.taskImage, R.id.taskName, R.id.taskSign };
 	ArrayList<HashMap<String, Object>> groupData = null;
 	ArrayList<ArrayList<HashMap<String, Object>>> childData = null;
-
+	ViewGroup.LayoutParams params;
 	ExpandableListView exListView = null;
 	MyExpandableListViewAdapter adapter = null;
 
@@ -59,37 +64,8 @@ public class FolderFragment extends Fragment {
 		groupData = new ArrayList<HashMap<String, Object>>();
 		childData = new ArrayList<ArrayList<HashMap<String, Object>>>();
 
-		// 创建groupLocation对象
-
-		TasksInfo task1 = new TasksInfo("和小伙伴们打Dota", "玩LOL的都是小学生",
-				R.drawable.sample_icon, "二次元");
-		TasksInfo task2 = new TasksInfo("和小伙伴们打Dota", "玩LOL的都是小学生",
-				R.drawable.sample_icon, "模板TODO");
-		TasksInfo task3 = new TasksInfo("和小伙伴们打Dota", "玩LOL的都是小学生",
-				R.drawable.sample_icon, "三次元");
-		TasksInfo task4 = new TasksInfo("和小伙伴们打Dota", "玩LOL的都是小学生",
-				R.drawable.sample_icon, "三次元");
-		TasksInfo task5 = new TasksInfo("和小伙伴们打Dota", "玩LOL的都是小学生",
-				R.drawable.sample_icon, "模板TODO");
-
-		addUser(task1);
-		addUser(task2);
-		addUser(task3);
-		addUser(task4);
-		addUser(task5);
-		addUser(task1);
-		addUser(task2);
-		addUser(task3);
-		addUser(task4);
-		addUser(task5);
-		addUser(task3);
-		addUser(task4);
-		addUser(task5);
-		addUser(task3);
-		addUser(task4);
-		addUser(task5);
-
-		// 不能用HashMap的实参赋给Map形参，只能new一个HashMap对象赋给Map的引用！
+		initUser();
+		// ������HashMap��ʵ�θ���Map�βΣ�ֻ��newһ��HashMap���󸳸�Map�����ã�
 
 		exListView = (ExpandableListView) view
 				.findViewById(R.id.expandable_list);
@@ -97,22 +73,9 @@ public class FolderFragment extends Fragment {
 				R.layout.layout_list_folder, groupFrom, groupTo, childData,
 				R.layout.layout_list_task, childFrom, childTo);
 		exListView.setAdapter(adapter);
+		// adapter.notifyDataSetChanged();
 
-		// 子列表点击事件监听，跳转到具体任务界面
-		exListView.setOnChildClickListener(new OnChildClickListener() {
-
-			@Override
-			public boolean onChildClick(ExpandableListView parent, View v,
-					int groupPosition, int childPosition, long id) {
-				//
-				Intent intent = new Intent();
-				intent.setClass(getActivity(), DetailsEventActivity.class);
-				getActivity().startActivity(intent);
-				return false;
-			}
-		});
-
-		// 获得folder item的实际高度
+		// ���folder item��ʵ�ʸ߶�
 		View exGroupListItem = exListView.getExpandableListAdapter()
 				.getGroupView(0, false, null, exListView);
 		exGroupListItem.setLayoutParams(new LayoutParams(
@@ -120,7 +83,7 @@ public class FolderFragment extends Fragment {
 		exGroupListItem.measure(0, 0);
 		GROUP_HEIGHT = exGroupListItem.getMeasuredHeight();
 
-		// 获得task item的实际高度
+		// ���task item��ʵ�ʸ߶�
 		View exChildListItem = exListView.getExpandableListAdapter()
 				.getChildView(0, 0, false, null, exListView);
 		exChildListItem.setLayoutParams(new LayoutParams(
@@ -128,31 +91,37 @@ public class FolderFragment extends Fragment {
 		exChildListItem.measure(0, 0);
 		CHILD_HEIGHT = exChildListItem.getMeasuredHeight();
 
-		// 设置folder viewgroup的高度
-		ViewGroup.LayoutParams params = exListView.getLayoutParams();
-		height = groupData.size() * GROUP_HEIGHT - 2;
-		params.height = height;
-		exListView.setLayoutParams(params);
-
-		for (int i = 0; i < groupData.size(); i++) {
-			groupData.get(i).put("location", i);
-		}
+		// ���б����¼�������ת�������������
+		exListView.setOnChildClickListener(new OnChildClickListener() {
+			@Override
+			public boolean onChildClick(ExpandableListView parent, View v,
+					int groupPosition, int childPosition, long id) {
+				// TODO Auto-generated method stub
+				Intent intent = new Intent();
+				intent.putExtra(
+						"taskName",
+						childData.get(groupPosition).get(childPosition)
+								.get("taskName").toString());
+				intent.setClass(getActivity(), DetailsEventActivity.class);
+				getActivity().startActivity(intent);
+				return true;
+			}
+		});
 
 		exListView.setOnItemLongClickListener(new LongItemClick());
-
 		return view;
 	}
 
-	// 长按父列表，显示popupwindow
+	// �������б?��ʾpopupwindow
 	class LongItemClick implements OnItemLongClickListener {
 		@Override
 		public boolean onItemLongClick(AdapterView<?> arg0, View arg1,
 				int arg2, long arg3) {
 			int position = arg2;
-			//
+			// TODO Auto-generated method stub
 			for (int i = 0; i < groupData.size(); i++) {
 				if (position == (Integer) groupData.get(i).get("location")) {
-					// Toast.makeText(getActivity(), "长按点击",
+					// Toast.makeText(getActivity(), "�������",
 					// Toast.LENGTH_LONG).show();
 					showPopUp(arg1, arg2, i);
 
@@ -162,30 +131,30 @@ public class FolderFragment extends Fragment {
 		}
 	}
 
-	// popupwindow显示函数，点击跳转到添加，删除文件夹界面
+	// popupwindow��ʾ��������ת����ӣ�ɾ���ļ��н���
 	private void showPopUp(View view, int position, int i) {
 
 		Vibrator vibrator = (Vibrator) getActivity().getSystemService(
 				Service.VIBRATOR_SERVICE);
-		vibrator.vibrate(30);
-		// popUpWindow布局
+		vibrator.vibrate(15);
+		// popUpWindow����
 		LayoutInflater inflater1 = LayoutInflater.from(getActivity());
 		View viewpop = inflater1.inflate(R.layout.popupwindow_layout, null);
 		pop = new PopupWindow(view, LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT, false);
 		pop.setContentView(viewpop);
 		Button btn = (Button) viewpop.findViewById(R.id.popwindow_Button);
-		// 需要设置一下此参数，点击外边可消失
+		// ��Ҫ����һ�´˲�������߿���ʧ
 		pop.setBackgroundDrawable(new BitmapDrawable());
-		// 设置点击窗口外边窗口消失
+		// ���õ��������ߴ�����ʧ
 		pop.setOutsideTouchable(true);
-		// 设置此参数获得焦点，否则无法点击
+		// ���ô˲����ý��㣬�����޷����
 		pop.setFocusable(true);
-		// 获得屏幕宽度
+		// �����Ļ���
 		WindowManager wm = (WindowManager) getActivity().getSystemService(
 				Context.WINDOW_SERVICE);
 		int width = wm.getDefaultDisplay().getWidth();
-		// 获得控件的位置
+		// ��ÿؼ���λ��
 		int[] location = new int[2];
 		view.getLocationInWindow(location);
 
@@ -196,94 +165,73 @@ public class FolderFragment extends Fragment {
 
 			@Override
 			public void onClick(View arg0) {
-				//
+				// TODO Auto-generated method stub
 				pop.dismiss();
 				Intent intent = new Intent();
 				intent.setClass(getActivity(), AddDeleteFolderActivity.class);
 				getActivity().startActivity(intent);
 			}
 		});
-
 	}
 
-	/**
-	 * method to inflate groupData & childData read data from database
-	 */
-	protected void inflateData() {
-		ArrayList<String> folders = SQLOperate.getAllFolders(getActivity());
-		for (String folder : folders) {
-			// 通过folder名字获取相应的事件ID列表
-			// fill in the groupData
-			ArrayList<Long> eventIds = SQLOperate.getAllEventIdbyFolder(
-					getActivity(), folder);
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("folderName", folder);
-			map.put("tasksCount", eventIds.size());
-			groupData.add(map);
+	protected void initUser() {
+		// 若allFolders的大小为空，则向groupData中添加空的group，防止出现空指针的问题
+		ArrayList<String> allFolders = SQLOperate.getAllFolders(getActivity());
+		// HashMap<String,Object> group
+		ArrayList<HashMap<String, Object>> childList = new ArrayList<HashMap<String, Object>>();
 
-			// add up all childGroup by iterate all the eventId
-			String sql = "select * from  events WHERE id=?";
-			ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-			for (Long eventId : eventIds) {
-				Cursor event = SQLOperate.basicQuery(getActivity(), sql,
-						new String[] { String.valueOf(eventId) });
-				while (event.moveToNext()) {
-					// 添加任务信息到任务列表
-					HashMap<String, Object> tasksData = new HashMap<String, Object>();
-					tasksData.put("taskImage",
-							event.getString(event.getColumnIndex("icon")));
-					tasksData.put("taskName",
-							event.getString(event.getColumnIndex("name")));
-					tasksData.put("taskSign", "fill intro");
-					tasksData.put("eventId", eventId);
-					list.add(tasksData);
+		if (allFolders != null && allFolders.size() > 0) {
+			for (int i = 0; i < allFolders.size(); i++) {
+				HashMap<String, Object> group = new HashMap<String, Object>();
+				ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
+				ArrayList<Long> allEventId = SQLOperate.getAllEventIdbyFolder(
+						getActivity(), allFolders.get(i));
+				group.put("folderName", allFolders.get(i));
+				if (allEventId != null && allEventId.size() > 0) {
+					group.put("tasksCount", allEventId.size());
+					for (long singleEventId : allEventId) {
+						String sql = "select * from  events WHERE id=?";
+						String[] eventId = new String[] { String
+								.valueOf(singleEventId) };
+						Cursor cursor = SQLOperate.basicQuery(getActivity(),
+								sql, eventId);
+						if (cursor != null && cursor.getCount() > 0) {
+							cursor.moveToFirst();
+							// 开始把task对象new在循环的外面 造成add时前一个数据总被后一个数据覆盖
+							HashMap<String, Object> task = new HashMap<String, Object>();
+							task.put("taskName", cursor.getString(cursor
+									.getColumnIndex("name")));
+							task.put(
+									"taskSign",
+									cursor.getString(cursor
+											.getColumnIndex("time_stamp"))
+											+ cursor.getString(cursor
+													.getColumnIndex("alarm"))
+											+ cursor.getString(cursor
+													.getColumnIndex("repeat"))
+											+ cursor.getString(cursor
+													.getColumnIndex("duration")));
+							list.add(task);
+						}
+					}
+					childData.add(list);
+					Log.d("childData", childData.toString());
+				} else {
+					// 若eventId的大小为零，则向childData中添加空的list，防止出现空指针错误
+					childData.add(list);
+					group.put("tasksCount", 0);
 				}
+				group.put("expanded", false);
+				groupData.add(group);
 			}
-			childData.add(list);
-
+		} else {
+			// groupData.add(group);
+			childData.add(childList);
 		}
-		// 全部折叠
-		for (HashMap<String, Object> GD : groupData) {
-			GD.put("expanded", false);
-		}
-	}
-
-	// 向列表中添加文件夹，这个函数暂时写在这，后台完成后，应该写到添加，删除文件夹界面中
-	protected void addUser(TasksInfo task) {
-		int i;
-		// 判断加入的文件夹是否已经存在
-		for (i = 0; i < groupData.size(); i++) {
-			if (groupData.get(i).get("folderName").toString()
-					.equals(task.folderInfo)) {
-				break;
-			}
-		}
-		// 如果加入的文件夹不存在，则加入并设置tasksCount为0；
-		if (i >= groupData.size()) {
-			HashMap<String, Object> map = new HashMap<String, Object>();
-
-			map.put("folderName", task.folderInfo);
-			map.put("tasksCount", 0);
-			groupData.add(map);
-
-			ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
-			childData.add(list);
-		}
-		// 添加任务信息到任务列表
-		HashMap<String, Object> tasksData = new HashMap<String, Object>();
-		tasksData.put("taskImage", task.taskImage);
-		tasksData.put("taskName", task.taskName);
-		tasksData.put("taskSign", task.taskSign);
-		childData.get(i).add(tasksData);
-		// 添加任务数目
-		Integer count = (Integer) groupData.get(i).get("tasksCount") + 1;
-		groupData.get(i).put("tasksCount", count);
-		groupData.get(i).put("expanded", false);
-
 	}
 
 	/**
-	 * ExpandableListView对应的适配器
+	 * ExpandableListView��Ӧ��������
 	 */
 	public class MyExpandableListViewAdapter extends BaseExpandableListAdapter {
 
@@ -314,17 +262,16 @@ public class FolderFragment extends Fragment {
 			this.childLayout = childLayout;
 			this.childFrom = childFrom;
 			this.childTo = childTo;
-
 		}
 
 		@Override
 		public Object getChild(int arg0, int arg1) {
-			//
+			// TODO Auto-generated method stub
 			return null;
 		}
 
 		/**
-		 * position与id一样，都是从0开始计数的， * 这里返回的id也是从0开始计数的
+		 * position��idһ���Ǵ�0��ʼ����ģ� ���ﷵ�ص�idҲ�Ǵ�0��ʼ�����
 		 */
 		@Override
 		public long getChildId(int groupPosition, int childPosition) {
@@ -337,9 +284,9 @@ public class FolderFragment extends Fragment {
 			return id;
 		}
 
-		/** ChildViewHolder内部类 **/
+		/** ChildViewHolder�ڲ��� **/
 		class ChildViewTask {
-			ImageButton taskImage = null;
+			ImageView taskImage = null;
 			TextView taskName = null;
 			TextView taskSign = null;
 		}
@@ -347,21 +294,22 @@ public class FolderFragment extends Fragment {
 		@Override
 		public View getChildView(int groupPosition, int childPosition,
 				boolean isLastChild, View convertView, ViewGroup parent) {
-			//
+			// TODO Auto-generated method stub
 			/**
-			 * 这里isLastChild目前没用到，如果出现异常再说
+			 * ����isLastChildĿǰû�õ����������쳣��˵
 			 */
 			ChildViewTask task = null;
 			if (convertView == null) {
 				convertView = LayoutInflater.from(context).inflate(childLayout,
 						null);
-				// 感觉这里需要把root设置成ViewGroup 对象
+
 				/**
-				 * ERROR!!这里不能把null换成parent，否则会出现异常退出，原因不太确定，
-				 * 可能是inflate方法获得的这个item的View 并不属于某个控件组，所以使用默认值null即可
+				 * ERROR!!���ﲻ�ܰ�null����parent�����������쳣�˳���ԭ��̫ȷ����������
+				 * inflate������õ����item��View
+				 * ��������ĳ���ؼ��飬����ʹ��Ĭ��ֵnull����
 				 */
 				task = new ChildViewTask();
-				task.taskImage = (ImageButton) convertView
+				task.taskImage = (ImageView) convertView
 						.findViewById(R.id.taskImage);
 				task.taskName = (TextView) convertView
 						.findViewById(R.id.taskName);
@@ -372,38 +320,40 @@ public class FolderFragment extends Fragment {
 				task = (ChildViewTask) convertView.getTag();
 			}
 
-			task.taskImage.setBackgroundResource((Integer) (childData.get(
-					groupPosition).get(childPosition).get("taskImage")));
-			task.taskName.setText(childData.get(groupPosition)
-					.get(childPosition).get("taskName").toString());
-			task.taskSign.setText(childData.get(groupPosition)
-					.get(childPosition).get("taskSign").toString());
-			// task.taskImage.setOnClickListener(new ImageClickListener(task));
-
+			if (childData.get(groupPosition) != null
+					&& childData.get(groupPosition).size() > 0) {
+				// task.taskImage.setBackgroundResource((Integer)(childData.get(groupPosition).get(childPosition).get("taskImage")));
+				task.taskName.setText(childData.get(groupPosition)
+						.get(childPosition).get("taskName").toString());
+				task.taskSign.setText(childData.get(groupPosition)
+						.get(childPosition).get("taskSign").toString());
+				// task.taskImage.setOnClickListener(new
+				// ImageClickListener(task));
+			}
 			return convertView;
 		}
 
 		@Override
 		public int getChildrenCount(int groupPosition) {
-			//
+			// TODO Auto-generated method stub
 			return childData.get(groupPosition).size();
 		}
 
 		@Override
 		public Object getGroup(int groupPosition) {
-			//
+			// TODO Auto-generated method stub
 			return null;
 		}
 
 		@Override
 		public int getGroupCount() {
-			//
+			// TODO Auto-generated method stub
 			return groupData.size();
 		}
 
 		@Override
 		public long getGroupId(int groupPosition) {
-			//
+			// TODO Auto-generated method stub
 			return groupPosition;
 		}
 
@@ -416,7 +366,7 @@ public class FolderFragment extends Fragment {
 		@Override
 		public View getGroupView(int groupPosition, boolean isExpanded,
 				View convertView, ViewGroup parent) {
-			//
+			// TODO Auto-generated method stub
 			GroupViewFolder folder = null;
 			if (convertView == null) {
 				convertView = LayoutInflater.from(context).inflate(groupLayout,
@@ -432,45 +382,37 @@ public class FolderFragment extends Fragment {
 				folder = (GroupViewFolder) convertView.getTag();
 			}
 
-			folder.folderName.setText(groupData.get(groupPosition)
-					.get("folderName").toString());
-			folder.tasksCount.setText(groupData.get(groupPosition)
-					.get("tasksCount").toString());
+			if (groupData != null && groupData.size() > 0) {
+				folder.folderName.setText(groupData.get(groupPosition)
+						.get("folderName").toString());
+				folder.tasksCount.setText(groupData.get(groupPosition)
+						.get("tasksCount").toString());
+			}
 
-			// else的情况也要考虑，否则在绘制时出现错位现象
-
-			/**
-			 * 将刚刚创建的groupItem的相对坐标计算出来放在groupLocation中，这个是初始相对坐标
-			 * 当点击打开一级菜单和关闭一级菜单时重新更新每一个group的相对坐标
-			 */
+			// else�����ҲҪ���ǣ������ڻ���ʱ���ִ�λ����
 
 			return convertView;
-			/**
-			 * 不要在适配器中调用适配器的内部方法，不然会出现奇怪的异常
-			 * 
-			 */
 		}
 
 		@Override
 		public boolean hasStableIds() {
-			//
-			return false;
+			// TODO Auto-generated method stub
+			return true;
 		}
 
 		@Override
 		public boolean isChildSelectable(int groupPosition, int childPosition) {
-			//
 			return true;
 		}
 
 		/**
-		 * 在设置ExpandableListView的宽度的时候，要注意每次点击展开或者关闭时，各个Group和所要显示的Item都会重绘
-		 * 因此在每次绘制完毕之后都需要对height进行更新
+		 * ������ExpandableListView�Ŀ�ȵ�ʱ��Ҫע��ÿ�ε��չ�����߹ر�ʱ������Group����Ҫ��
+		 * ʾ��Item�����ػ� �����ÿ�λ������֮����Ҫ��height���и���
 		 */
 
 		@Override
 		public void onGroupExpanded(int groupPosition) {
-			//
+			// TODO Auto-generated method stub
 			super.onGroupExpanded(groupPosition);
 			groupData.get(groupPosition).put("expanded", true);
 			height += childData.get(groupPosition).size() * CHILD_HEIGHT;
@@ -487,7 +429,7 @@ public class FolderFragment extends Fragment {
 
 		@Override
 		public void onGroupCollapsed(int groupPosition) {
-			//
+			// TODO Auto-generated method stub
 			super.onGroupCollapsed(groupPosition);
 			groupData.get(groupPosition).put("expanded", false);
 			height = height - childData.get(groupPosition).size()
@@ -495,7 +437,7 @@ public class FolderFragment extends Fragment {
 			ViewGroup.LayoutParams params = exListView.getLayoutParams();
 			params.height = height;
 			exListView.setLayoutParams(params);
-			// 获得groupitem的position
+			// ���groupitem��position
 			for (int i = groupPosition + 1; i < groupData.size(); i++) {
 				groupData.get(i).put(
 						"location",
@@ -505,5 +447,60 @@ public class FolderFragment extends Fragment {
 		}
 
 	}
+
+	/**
+	 * ���б��ˢ��
+	 */
+	@Override
+	public void onStart() {
+		super.onStart();
+		int childNum = 0;
+		ArrayList<String> expandList = null;
+		expandList = new ArrayList<String>();
+
+		for (int i = 0; i < groupData.size(); i++) {
+			if ((boolean) groupData.get(i).get("expanded").equals(true)) {
+				expandList.add(groupData.get(i).get("folderName").toString());
+			}
+		}
+
+		groupData.clear();
+		childData.clear();
+
+		initUser();
+
+		for (int i = 0; i < expandList.size(); i++) {
+			for (int j = 0; j < groupData.size(); j++) {
+				if (expandList.get(i)
+						.equals(groupData.get(j).get("folderName"))) {
+					// groupData.get(j).remove("expanded");
+					groupData.get(j).put("expanded", true);
+					childNum += childData.get(j).size();
+				}
+			}
+		}
+
+		params = exListView.getLayoutParams();
+		height = groupData.size() * GROUP_HEIGHT - 2 + childNum * CHILD_HEIGHT;
+		params.height = height;
+		exListView.setLayoutParams(params);
+
+		int location = 0;
+
+		for (int i = 0; i < groupData.size(); i++) {
+			if (i == 0) {
+				groupData.get(i).put("location", 0);
+			} else {
+				if ((boolean) groupData.get(i - 1).get("expanded").equals(true)) {
+					location += childData.get(i - 1).size();
+				}
+				groupData.get(i).put("location", i + location);
+			}
+
+		}
+
+		adapter.notifyDataSetChanged();
+	}
+
 
 }

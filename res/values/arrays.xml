@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>     
+<resources>
+
     <string-array name="left_menu">
         <item>即时</item>
         <item>任务</item>
         <item>日历</item>
         <item>便签</item>
         <item>设置</item>
-    </string-array>      
+    </string-array>
+
+    <array name="nav_drawer_icons">
+        <item>@drawable/sample_icon</item>
+        <item>@drawable/sample_icon</item>
+        <item>@drawable/sample_icon</item>
+        <item>@drawable/sample_icon</item>
+        <item>@drawable/sample_icon</item>
+        <item>@drawable/sample_icon</item>
+    </array>
+
 </resources>

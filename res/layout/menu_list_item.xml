@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dp"
+    android:layout_height="wrap_content" 
+    android:background="@color/gray"
+    android:orientation="vertical">
+   
+    <ImageView 
+        android:id="@+id/icon"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:src="@drawable/sample_icon"
+        android:layout_gravity="center"
+        android:layout_marginTop="4dp"/>
+    <TextView
+        android:id="@+id/title" 
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="设置"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"/>
+</LinearLayout>

@@ -45,7 +45,7 @@ public class NewEventActivity extends ActionBarActivity {
 		fragmentTransaction.commit();
 		
 		
-
+		
 		
 	}
 
